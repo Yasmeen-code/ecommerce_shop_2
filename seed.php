@@ -1,31 +1,26 @@
 <?php
 require_once 'includes/db.php';
-$testimonials = [
-    [
-        'client_name' => 'Saira Hakim',
-        'role' => 'Local shop owner',
-        'avatar' => 'avatar1.png',
-        'message' => 'Sed ut perspiciatis unde omnis iste natus error veritatis et quasi architecto...'
-    ],
-    [
-        'client_name' => 'David Niph',
-        'role' => 'Local shop owner',
-        'avatar' => 'avatar2.png',
-        'message' => 'Sed ut perspiciatis unde omnis iste natus error veritatis et quasi architecto...'
-    ],
-    [
-        'client_name' => 'Jacob Sikim',
-        'role' => 'Local shop owner',
-        'avatar' => 'avatar3.png',
-        'message' => 'Sed ut perspiciatis unde omnis iste natus error veritatis et quasi architecto...'
-    ]
-];
+try {
 
-$stmt = $pdo->prepare("INSERT INTO testimonials (client_name, role, avatar, message) VALUES (?, ?, ?, ?)");
+    $logos = [
+        ['image_path' => 'assets/img/company-logos/1.png', 'alt_text' => 'Logo 1'],
+        ['image_path' => 'assets/img/company-logos/2.png', 'alt_text' => 'Logo 2'],
+        ['image_path' => 'assets/img/company-logos/3.png', 'alt_text' => 'Logo 3'],
+        ['image_path' => 'assets/img/company-logos/4.png', 'alt_text' => 'Logo 4'],
+        ['image_path' => 'assets/img/company-logos/5.png', 'alt_text' => 'Logo 5'],
+    ];
 
-foreach ($testimonials as $t) {
-    $stmt->execute([$t['client_name'], $t['role'], $t['avatar'], $t['message']]);
+    $stmt = $pdo->prepare("INSERT INTO company_logos (image_path, alt_text) VALUES (:image_path, :alt_text)");
+
+    foreach ($logos as $logo) {
+        $stmt->execute([
+            ':image_path' => $logo['image_path'],
+            ':alt_text' => $logo['alt_text'],
+        ]);
+    }
+
+    echo "Logos inserted successfully.";
+} catch (PDOException $e) {
+    echo "Database error: " . $e->getMessage();
 }
-
-echo "Testimonials inserted successfully.";
 ?>

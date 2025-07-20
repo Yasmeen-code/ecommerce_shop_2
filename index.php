@@ -157,49 +157,49 @@ LIMIT 1")->fetch(PDO::FETCH_ASSOC);
 ?>
 
 <?php if ($deal): ?>
-<section class="cart-banner pt-100 pb-100">
-	<div class="container">
-		<div class="row clearfix">
-			<!--Image Column-->
-			<div class="image-column col-lg-6">
-				<div class="image">
-					<div class="price-box">
-						<div class="inner-price">
-							<span class="price">
-								<strong><?= $deal['discount_percent'] ?>%</strong> <br> off per kg
-							</span>
+	<section class="cart-banner pt-100 pb-100">
+		<div class="container">
+			<div class="row clearfix">
+				<!--Image Column-->
+				<div class="image-column col-lg-6">
+					<div class="image">
+						<div class="price-box">
+							<div class="inner-price">
+								<span class="price">
+									<strong><?= $deal['discount_percent'] ?>%</strong> <br> off per kg
+								</span>
+							</div>
 						</div>
-					</div>
-					<img src="assets/img/<?= htmlspecialchars($deal['image']) ?>" alt="">
-				</div>
-			</div>
-			<!--Content Column-->
-			<div class="content-column col-lg-6">
-				<h3><span class="orange-text">Deal</span> of the month</h3>
-				<h4><?= htmlspecialchars($deal['name']) ?></h4>
-				<div class="text"><?= nl2br(htmlspecialchars($deal['description'])) ?></div>
-				<!--Countdown Timer-->
-				<div class="time-counter">
-					<div class="time-countdown clearfix" data-countdown="<?= $deal['end_date'] ?>">
-						<div class="counter-column">
-							<div class="inner"><span class="count">00</span>Days</div>
-						</div>
-						<div class="counter-column">
-							<div class="inner"><span class="count">00</span>Hours</div>
-						</div>
-						<div class="counter-column">
-							<div class="inner"><span class="count">00</span>Mins</div>
-						</div>
-						<div class="counter-column">
-							<div class="inner"><span class="count">00</span>Secs</div>
-						</div>
+						<img src="assets/img/<?= htmlspecialchars($deal['image']) ?>" alt="">
 					</div>
 				</div>
-				<a href="cart.php?add=<?= $deal['product_id'] ?>" class="cart-btn mt-3"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+				<!--Content Column-->
+				<div class="content-column col-lg-6">
+					<h3><span class="orange-text">Deal</span> of the month</h3>
+					<h4><?= htmlspecialchars($deal['name']) ?></h4>
+					<div class="text"><?= nl2br(htmlspecialchars($deal['description'])) ?></div>
+					<!--Countdown Timer-->
+					<div class="time-counter">
+						<div class="time-countdown clearfix" data-countdown="<?= $deal['end_date'] ?>">
+							<div class="counter-column">
+								<div class="inner"><span class="count">00</span>Days</div>
+							</div>
+							<div class="counter-column">
+								<div class="inner"><span class="count">00</span>Hours</div>
+							</div>
+							<div class="counter-column">
+								<div class="inner"><span class="count">00</span>Mins</div>
+							</div>
+							<div class="counter-column">
+								<div class="inner"><span class="count">00</span>Secs</div>
+							</div>
+						</div>
+					</div>
+					<a href="cart.php?add=<?= $deal['product_id'] ?>" class="cart-btn mt-3"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+				</div>
 			</div>
 		</div>
-	</div>
-</section>
+	</section>
 <?php endif; ?>
 
 <!-- end cart banner section -->
@@ -211,7 +211,6 @@ LIMIT 1")->fetch(PDO::FETCH_ASSOC);
 			<div class="col-lg-10 offset-lg-1 text-center">
 				<div class="testimonial-sliders">
 					<?php
-					require 'db.php';
 					$stmt = $pdo->query("SELECT * FROM testimonials ORDER BY created_at DESC LIMIT 10");
 					while ($t = $stmt->fetch(PDO::FETCH_ASSOC)) {
 					?>
@@ -262,13 +261,24 @@ LIMIT 1")->fetch(PDO::FETCH_ASSOC);
 <!-- end advertisement section -->
 
 <!-- shop banner -->
-<section class="shop-banner">
-	<div class="container">
-		<h3>December sale is on! <br> with big <span class="orange-text">Discount...</span></h3>
-		<div class="sale-percent"><span>Sale! <br> Upto</span>50% <span>off</span></div>
-		<a href="shop.php" class="cart-btn btn-lg">Shop Now</a>
-	</div>
-</section>
+<?php
+$stmt = $pdo->prepare("SELECT * FROM deals WHERE end_date >= NOW() and id='2' ORDER BY created_at DESC LIMIT 1");
+$stmt->execute();
+$deal = $stmt->fetch(PDO::FETCH_ASSOC);
+?>
+
+<?php if ($deal): ?>
+	<!-- dynamic shop banner -->
+	<section class="shop-banner" style="background-image: url('assets/img/<?php echo $deal['image']; ?>'); background-size: cover; background-position: center;">
+		<div class="container">
+			<h3><?php echo $deal['description']; ?> <br> with <span class="orange-text"><?php echo $deal['discount_percent']; ?>% OFF</span></h3>
+			<div class="sale-percent"><span>Sale!</span> <?php echo $deal['discount_percent']; ?>% <span>off</span></div>
+			<a href="shop.php" class="cart-btn btn-lg">Shop Now</a>
+		</div>
+	</section>
+	<!-- end dynamic shop banner -->
+<?php endif; ?>
+
 <!-- end shop banner -->
 
 <!-- latest news -->
@@ -285,63 +295,39 @@ LIMIT 1")->fetch(PDO::FETCH_ASSOC);
 		</div>
 
 		<div class="row">
-			<div class="col-lg-4 col-md-6">
-				<div class="single-latest-news">
-					<a href="single-news.php">
-						<div class="latest-news-bg news-bg-1"></div>
-					</a>
-					<div class="news-text-box">
-						<h3><a href="single-news.php">You will vainly look for fruit on it in autumn.</a></h3>
-						<p class="blog-meta">
-							<span class="author"><i class="fas fa-user"></i> Admin</span>
-							<span class="date"><i class="fas fa-calendar"></i> 27 December, 2019</span>
-						</p>
-						<p class="excerpt">Vivamus lacus enim, pulvinar vel nulla sed, scelerisque rhoncus nisi. Praesent vitae mattis nunc, egestas viverra eros.</p>
-						<a href="single-news.php" class="read-more-btn">read more <i class="fas fa-angle-right"></i></a>
+			<?php
+			$stmt = $pdo->query("SELECT * FROM news ORDER BY date DESC LIMIT 3");
+			while ($news = $stmt->fetch(PDO::FETCH_ASSOC)) {
+			?>
+				<div class="col-lg-4 col-md-6">
+					<div class="single-latest-news">
+						<a href="single-news.php?id=<?= $news['id'] ?>">
+							<div class="latest-news-bg" style="background-image: url('assets/img/latest-news/<?= htmlspecialchars($news['image']) ?>'); height: 250px; background-size: cover; background-position: center;"></div>
+						</a>
+						<div class="news-text-box">
+							<h3><a href="single-news.php?id=<?= $news['id'] ?>"><?= htmlspecialchars($news['title']) ?></a></h3>
+							<p class="blog-meta">
+								<span class="author"><i class="fas fa-user"></i> <?= htmlspecialchars($news['author']) ?></span>
+								<span class="date"><i class="fas fa-calendar"></i> <?= date('d F, Y', strtotime($news['date'])) ?></span>
+							</p>
+							<p class="excerpt"><?= htmlspecialchars($news['excerpt']) ?></p>
+							<a href="single-news.php?id=<?= $news['id'] ?>" class="read-more-btn">read more <i class="fas fa-angle-right"></i></a>
+						</div>
 					</div>
 				</div>
-			</div>
-			<div class="col-lg-4 col-md-6">
-				<div class="single-latest-news">
-					<a href="single-news.php">
-						<div class="latest-news-bg news-bg-2"></div>
-					</a>
-					<div class="news-text-box">
-						<h3><a href="single-news.php">A man's worth has its season, like tomato.</a></h3>
-						<p class="blog-meta">
-							<span class="author"><i class="fas fa-user"></i> Admin</span>
-							<span class="date"><i class="fas fa-calendar"></i> 27 December, 2019</span>
-						</p>
-						<p class="excerpt">Vivamus lacus enim, pulvinar vel nulla sed, scelerisque rhoncus nisi. Praesent vitae mattis nunc, egestas viverra eros.</p>
-						<a href="single-news.php" class="read-more-btn">read more <i class="fas fa-angle-right"></i></a>
-					</div>
-				</div>
-			</div>
-			<div class="col-lg-4 col-md-6 offset-md-3 offset-lg-0">
-				<div class="single-latest-news">
-					<a href="single-news.php">
-						<div class="latest-news-bg news-bg-3"></div>
-					</a>
-					<div class="news-text-box">
-						<h3><a href="single-news.php">Good thoughts bear good fresh juicy fruit.</a></h3>
-						<p class="blog-meta">
-							<span class="author"><i class="fas fa-user"></i> Admin</span>
-							<span class="date"><i class="fas fa-calendar"></i> 27 December, 2019</span>
-						</p>
-						<p class="excerpt">Vivamus lacus enim, pulvinar vel nulla sed, scelerisque rhoncus nisi. Praesent vitae mattis nunc, egestas viverra eros.</p>
-						<a href="single-news.php" class="read-more-btn">read more <i class="fas fa-angle-right"></i></a>
-					</div>
-				</div>
-			</div>
+			<?php } ?>
 		</div>
+
 		<div class="row">
 			<div class="col-lg-12 text-center">
 				<a href="news.php" class="boxed-btn">More News</a>
 			</div>
 		</div>
+
 	</div>
 </div>
 <!-- end latest news -->
+
 
 <!-- logo carousel -->
 <div class="logo-carousel-section">
@@ -349,26 +335,24 @@ LIMIT 1")->fetch(PDO::FETCH_ASSOC);
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="logo-carousel-inner">
-					<div class="single-logo-item">
-						<img src="assets/img/company-logos/1.png" alt="">
-					</div>
-					<div class="single-logo-item">
-						<img src="assets/img/company-logos/2.png" alt="">
-					</div>
-					<div class="single-logo-item">
-						<img src="assets/img/company-logos/3.png" alt="">
-					</div>
-					<div class="single-logo-item">
-						<img src="assets/img/company-logos/4.png" alt="">
-					</div>
-					<div class="single-logo-item">
-						<img src="assets/img/company-logos/5.png" alt="">
-					</div>
+					<?php
+					try {
+						$stmt = $pdo->query("SELECT * FROM company_logos");
+						while ($row = $stmt->fetch()) {
+							echo '<div class="single-logo-item">
+									<img src="' . $row['image_path'] . '" alt="' . htmlspecialchars($row['alt_text']) . '">
+							    </div>';
+						}
+					} catch (PDOException $e) {
+						echo "Error loading logos.";
+					}
+					?>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
+
 <!-- end logo carousel -->
 
 <?php include 'includes/footer.php'; ?>
