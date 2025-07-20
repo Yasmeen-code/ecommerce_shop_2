@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -32,16 +33,17 @@
 	<link rel="stylesheet" href="assets/css/responsive.css">
 
 </head>
+
 <body>
-	
+
 	<!--PreLoader-->
-    <div class="loader">
-        <div class="loader-inner">
-            <div class="circle"></div>
-        </div>
-    </div>
-    <!--PreLoader Ends-->
-	
+	<div class="loader">
+		<div class="loader-inner">
+			<div class="circle"></div>
+		</div>
+	</div>
+	<!--PreLoader Ends-->
+
 	<!-- header -->
 	<div class="top-header-area" id="sticker">
 		<div class="container">
@@ -50,7 +52,7 @@
 					<div class="main-menu-wrap">
 						<!-- logo -->
 						<div class="site-logo">
-							<a href="index.html">
+							<a href="index.php">
 								<img src="assets/img/logo.png" alt="">
 							</a>
 						</div>
@@ -67,33 +69,33 @@
 								<li><a href="about.php">About</a></li>
 								<li><a href="#">Pages</a>
 									<ul class="sub-menu">
-										<li><a href="404.html">404 page</a></li>
+										<li><a href="404.php">404 page</a></li>
 										<li><a href="about.php">About</a></li>
-										<li><a href="cart.html">Cart</a></li>
-										<li><a href="checkout.html">Check Out</a></li>
-										<li><a href="contact.html">Contact</a></li>
-										<li><a href="news.html">News</a></li>
+										<li><a href="cart.php">Cart</a></li>
+										<li><a href="checkout.php">Check Out</a></li>
+										<li><a href="contact.php">Contact</a></li>
+										<li><a href="news.php">News</a></li>
 										<li><a href="shop.php">Shop</a></li>
 									</ul>
 								</li>
-								<li><a href="news.html">News</a>
+								<li><a href="news.php">News</a>
 									<ul class="sub-menu">
-										<li><a href="news.html">News</a></li>
-										<li><a href="single-news.html">Single News</a></li>
+										<li><a href="news.php">News</a></li>
+										<li><a href="single-news.php">Single News</a></li>
 									</ul>
 								</li>
-								<li><a href="contact.html">Contact</a></li>
-								<li><a href="shop.html">Shop</a>
+								<li><a href="contact.php">Contact</a></li>
+								<li><a href="shop.php">Shop</a>
 									<ul class="sub-menu">
-										<li><a href="shop.html">Shop</a></li>
-										<li><a href="checkout.html">Check Out</a></li>
-										<li><a href="single-product.html">Single Product</a></li>
-										<li><a href="cart.html">Cart</a></li>
+										<li><a href="shop.php">Shop</a></li>
+										<li><a href="checkout.php">Check Out</a></li>
+										<li><a href="single-product.php">Single Product</a></li>
+										<li><a href="cart.php">Cart</a></li>
 									</ul>
 								</li>
 								<li>
 									<div class="header-icons">
-										<a class="shopping-cart" href="cart.html"><i class="fas fa-shopping-cart"></i></a>
+										<a class="shopping-cart" href="cart.php"><i class="fas fa-shopping-cart"></i></a>
 										<a class="mobile-hide search-bar-icon" href="#"><i class="fas fa-search"></i></a>
 									</div>
 								</li>
@@ -108,4 +110,3 @@
 		</div>
 	</div>
 	<!-- end header -->
-	
