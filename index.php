@@ -2,24 +2,6 @@
 <?php include 'includes/header.php'; ?>
 
 
-<!-- search area -->
-<div class="search-area">
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-12">
-				<span class="close-btn"><i class="fas fa-window-close"></i></span>
-				<div class="search-bar">
-					<div class="search-bar-tablecell">
-						<h3>Search For:</h3>
-						<input type="text" placeholder="Keywords">
-						<button type="submit">Search <i class="fas fa-search"></i></button>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-<!-- end search area -->
 
 <!-- home page slider -->
 <div class="homepage-slider">
@@ -140,42 +122,41 @@
 		</div>
 
 		<div class="row">
-			<div class="col-lg-4 col-md-6 text-center">
-				<div class="single-product-item">
-					<div class="product-image">
-						<a href="single-product.php"><img src="assets/img/products/product-img-1.jpg" alt=""></a>
+			<?php
+			$stmt = $pdo->query("SELECT * FROM products LIMIT 6");
+			while ($product = $stmt->fetch(PDO::FETCH_ASSOC)) {
+			?>
+				<div class="col-lg-4 col-md-6 text-center">
+					<div class="single-product-item">
+						<div class="product-image">
+							<a href="single-product.php?id=<?= $product['id'] ?>">
+								<img src="assets/img/products/<?= htmlspecialchars($product['image']) ?>" alt="<?= htmlspecialchars($product['name']) ?>">
+							</a>
+						</div>
+						<h3><?= htmlspecialchars($product['name']) ?></h3>
+						<p class="product-price"><span>Per Kg</span> <?= number_format($product['price'], 2) ?>$</p>
+						<a href="cart.php?add=<?= $product['id'] ?>" class="cart-btn">
+							<i class="fas fa-shopping-cart"></i> Add to Cart
+						</a>
 					</div>
-					<h3>Strawberry</h3>
-					<p class="product-price"><span>Per Kg</span> 85$ </p>
-					<a href="cart.php" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
 				</div>
-			</div>
-			<div class="col-lg-4 col-md-6 text-center">
-				<div class="single-product-item">
-					<div class="product-image">
-						<a href="single-product.php"><img src="assets/img/products/product-img-2.jpg" alt=""></a>
-					</div>
-					<h3>Berry</h3>
-					<p class="product-price"><span>Per Kg</span> 70$ </p>
-					<a href="cart.php" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
-				</div>
-			</div>
-			<div class="col-lg-4 col-md-6 offset-md-3 offset-lg-0 text-center">
-				<div class="single-product-item">
-					<div class="product-image">
-						<a href="single-product.php"><img src="assets/img/products/product-img-3.jpg" alt=""></a>
-					</div>
-					<h3>Lemon</h3>
-					<p class="product-price"><span>Per Kg</span> 35$ </p>
-					<a href="cart.php" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
-				</div>
-			</div>
+			<?php
+			}
+			?>
 		</div>
 	</div>
 </div>
 <!-- end product section -->
 
 <!-- cart banner section -->
+<?php
+$deal = $pdo->query("SELECT d.*, p.name FROM deals d
+JOIN products p ON d.product_id = p.id
+ORDER BY d.created_at DESC
+LIMIT 1")->fetch(PDO::FETCH_ASSOC);
+?>
+
+<?php if ($deal): ?>
 <section class="cart-banner pt-100 pb-100">
 	<div class="container">
 		<div class="row clearfix">
@@ -185,21 +166,21 @@
 					<div class="price-box">
 						<div class="inner-price">
 							<span class="price">
-								<strong>30%</strong> <br> off per kg
+								<strong><?= $deal['discount_percent'] ?>%</strong> <br> off per kg
 							</span>
 						</div>
 					</div>
-					<img src="assets/img/a.jpg" alt="">
+					<img src="assets/img/<?= htmlspecialchars($deal['image']) ?>" alt="">
 				</div>
 			</div>
 			<!--Content Column-->
 			<div class="content-column col-lg-6">
 				<h3><span class="orange-text">Deal</span> of the month</h3>
-				<h4>Hikan Strwaberry</h4>
-				<div class="text">Quisquam minus maiores repudiandae nobis, minima saepe id, fugit ullam similique! Beatae, minima quisquam molestias facere ea. Perspiciatis unde omnis iste natus error sit voluptatem accusant</div>
+				<h4><?= htmlspecialchars($deal['name']) ?></h4>
+				<div class="text"><?= nl2br(htmlspecialchars($deal['description'])) ?></div>
 				<!--Countdown Timer-->
 				<div class="time-counter">
-					<div class="time-countdown clearfix" data-countdown="2020/2/01">
+					<div class="time-countdown clearfix" data-countdown="<?= $deal['end_date'] ?>">
 						<div class="counter-column">
 							<div class="inner"><span class="count">00</span>Days</div>
 						</div>
@@ -214,11 +195,13 @@
 						</div>
 					</div>
 				</div>
-				<a href="cart.php" class="cart-btn mt-3"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+				<a href="cart.php?add=<?= $deal['product_id'] ?>" class="cart-btn mt-3"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
 			</div>
 		</div>
 	</div>
 </section>
+<?php endif; ?>
+
 <!-- end cart banner section -->
 
 <!-- testimonail-section -->
@@ -227,53 +210,32 @@
 		<div class="row">
 			<div class="col-lg-10 offset-lg-1 text-center">
 				<div class="testimonial-sliders">
-					<div class="single-testimonial-slider">
-						<div class="client-avater">
-							<img src="assets/img/avaters/avatar1.png" alt="">
-						</div>
-						<div class="client-meta">
-							<h3>Saira Hakim <span>Local shop owner</span></h3>
-							<p class="testimonial-body">
-								" Sed ut perspiciatis unde omnis iste natus error veritatis et quasi architecto beatae vitae dict eaque ipsa quae ab illo inventore Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium "
-							</p>
-							<div class="last-icon">
-								<i class="fas fa-quote-right"></i>
+					<?php
+					require 'db.php';
+					$stmt = $pdo->query("SELECT * FROM testimonials ORDER BY created_at DESC LIMIT 10");
+					while ($t = $stmt->fetch(PDO::FETCH_ASSOC)) {
+					?>
+						<div class="single-testimonial-slider">
+							<div class="client-avater">
+								<img src="assets/img/avaters/<?= htmlspecialchars($t['avatar']) ?>" alt="<?= htmlspecialchars($t['client_name']) ?>">
+							</div>
+							<div class="client-meta">
+								<h3><?= htmlspecialchars($t['client_name']) ?> <span><?= htmlspecialchars($t['role']) ?></span></h3>
+								<p class="testimonial-body">
+									" <?= htmlspecialchars($t['message']) ?> "
+								</p>
+								<div class="last-icon">
+									<i class="fas fa-quote-right"></i>
+								</div>
 							</div>
 						</div>
-					</div>
-					<div class="single-testimonial-slider">
-						<div class="client-avater">
-							<img src="assets/img/avaters/avatar2.png" alt="">
-						</div>
-						<div class="client-meta">
-							<h3>David Niph <span>Local shop owner</span></h3>
-							<p class="testimonial-body">
-								" Sed ut perspiciatis unde omnis iste natus error veritatis et quasi architecto beatae vitae dict eaque ipsa quae ab illo inventore Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium "
-							</p>
-							<div class="last-icon">
-								<i class="fas fa-quote-right"></i>
-							</div>
-						</div>
-					</div>
-					<div class="single-testimonial-slider">
-						<div class="client-avater">
-							<img src="assets/img/avaters/avatar3.png" alt="">
-						</div>
-						<div class="client-meta">
-							<h3>Jacob Sikim <span>Local shop owner</span></h3>
-							<p class="testimonial-body">
-								" Sed ut perspiciatis unde omnis iste natus error veritatis et quasi architecto beatae vitae dict eaque ipsa quae ab illo inventore Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium "
-							</p>
-							<div class="last-icon">
-								<i class="fas fa-quote-right"></i>
-							</div>
-						</div>
-					</div>
+					<?php } ?>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
+
 <!-- end testimonail-section -->
 
 <!-- advertisement section -->
