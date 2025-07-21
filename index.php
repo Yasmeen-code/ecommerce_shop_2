@@ -1,5 +1,9 @@
-<?php include 'includes/db.php'; ?>
-<?php include 'includes/header.php'; ?>
+<?php
+session_start();
+ include 'includes/db.php'; ?>
+<?php include 'includes/header.php'; 
+
+?>
 
 
 
@@ -135,9 +139,16 @@
 						</div>
 						<h3><?= htmlspecialchars($product['name']) ?></h3>
 						<p class="product-price"><span>Per Kg</span> <?= number_format($product['price'], 2) ?>$</p>
-						<a href="cart.php?add=<?= $product['id'] ?>" class="cart-btn">
+
+						<form method="POST" action="add_to_cart.php">
+							<input type="hidden" name="product_id" value="<?= $product['id'] ?>">
+							<button type="submit" name="add_to_cart" class="cart-btn">
+								Add to Cart
+							</button>
+						</form>
+						<!-----<a href="cart.php?add=<?= $product['id'] ?>" class="cart-btn">
 							<i class="fas fa-shopping-cart"></i> Add to Cart
-						</a>
+						</a>---->
 					</div>
 				</div>
 			<?php
@@ -327,7 +338,7 @@ $deal = $stmt->fetch(PDO::FETCH_ASSOC);
 	</div>
 </div>
 <!-- end latest news -->
- 
+
 <?php include 'includes/footer.php'; ?>
 
 <!-- jquery -->
