@@ -3,17 +3,38 @@ session_start();
 include 'includes/db.php';
 include 'includes/header.php';
 
+
+if (!isset($_SESSION['user_id'])) {
+    header('Location: login.php');
+    exit;
+}
+
 $user_id = $_SESSION['user_id'];
 
 $stmt = $pdo->prepare("
-    SELECT c.*, p.name, p.price, p.image 
-    FROM cart_items c
-    JOIN products p ON c.product_id = p.id
-    WHERE c.user_id = ?
+    SELECT 
+        ci.id AS cart_item_id,
+        ci.quantity,
+        p.id AS product_id,
+        p.name,
+        p.price,
+        p.image
+    FROM cart_items ci
+    JOIN products p ON ci.product_id = p.id
+    WHERE ci.user_id = ?
 ");
 $stmt->execute([$user_id]);
-$cart_items = $stmt->fetchAll();
+$cartItems = $stmt->fetchAll();
+
+
+$subtotal = 0;
+foreach ($cartItems as $item) {
+    $subtotal += $item['price'] * $item['quantity'];
+}
+$shipping = 45;
+$total = $subtotal + $shipping;
 ?>
+
 
 
 <!-- breadcrumb-section -->
@@ -32,41 +53,92 @@ $cart_items = $stmt->fetchAll();
 <!-- end breadcrumb section -->
 
 <!-- cart -->
+<div class="cart-section mt-150 mb-150">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-12">
+                <div class="cart-table-wrap">
+                    <table class="cart-table">
+                        <thead class="cart-table-head">
+                            <tr class="table-head-row">
+                                <th class="product-remove"></th>
+                                <th class="product-image">Product Image</th>
+                                <th class="product-name">Name</th>
+                                <th class="product-price">Price</th>
+                                <th class="product-quantity">Quantity</th>
+                                <th class="product-total">Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($cartItems as $item): ?>
+                                <tr class="table-body-row">
+                                    <td class="product-remove">
+                                        <a href="remove_from_cart.php?id=<?= $item['cart_item_id'] ?>">
+                                            <i class="far fa-window-close"></i>
+                                        </a>
+                                    </td>
+                                    <td class="product-image">
+                                        <img src="assets/img/products/<?= htmlspecialchars($item['image']) ?>" alt="">
+                                    </td>
+                                    <td class="product-name"><?= htmlspecialchars($item['name']) ?></td>
+                                    <td class="product-price">$<?= number_format($item['price'], 2) ?></td>
+                                    <td class="product-quantity">
+                                        <input type="number" value="<?= $item['quantity'] ?>" readonly>
+                                    </td>
+                                    <td class="product-total">$<?= number_format($item['price'] * $item['quantity'], 2) ?></td>
+                                </tr>
+                            <?php endforeach; ?>
+                            <?php if (empty($cartItems)): ?>
+                                <tr><td colspan="6">Your cart is empty.</td></tr>
+                            <?php endif; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 
-<div class="cart">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-12">
-        <h2>Your Cart</h2>
-        <?php if (count($cart_items) > 0): ?>
-          <table class="table">
-            <thead>
-              <tr>
-                <th>Product</th>
-                <th>image</th>
-                <th>Price</th>
-                <th>Quantity</th>
-                <th>Total</th>
-              </tr>
-            </thead>
-            <tbody>
-              <?php foreach ($cart_items as $item): ?>
-                <tr>
-                  <td><?= htmlspecialchars($item['name']) ?></td>
-                  <td><img src="assets/img/products/<?= htmlspecialchars($item['image']) ?>" alt="<?= htmlspecialchars($item['name']) ?>" style="width: 50px; height: 50px;"></td>
-                  <td><?= number_format($item['price'], 2) ?>$</td>
-                  <td><?= $item['quantity'] ?></td>
-                  <td><?= number_format($item['price'] * $item['quantity'], 2) ?>$</td>
-                </tr>
-              <?php endforeach; ?>
-            </tbody>
-          </table>
-        <?php else: ?>
-          <p>Your cart is empty.</p>
-        <?php endif; ?>
-      </div>
+            <div class="col-lg-4">
+                <div class="total-section">
+                    <table class="total-table">
+                        <thead class="total-table-head">
+                            <tr class="table-total-row">
+                                <th>Total</th>
+                                <th>Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="total-data">
+                                <td><strong>Subtotal:</strong></td>
+                                <td>$<?= number_format($subtotal, 2) ?></td>
+                            </tr>
+                            <tr class="total-data">
+                                <td><strong>Shipping:</strong></td>
+                                <td>$<?= number_format($shipping, 2) ?></td>
+                            </tr>
+                            <tr class="total-data">
+                                <td><strong>Total:</strong></td>
+                                <td>$<?= number_format($total, 2) ?></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="cart-buttons">
+                        <a href="cart.php" class="boxed-btn">Update Cart</a>
+                        <a href="checkout.php" class="boxed-btn black">Check Out</a>
+                    </div>
+                </div>
+
+                <div class="coupon-section">
+                    <h3>Apply Coupon</h3>
+                    <div class="coupon-form-wrap">
+                        <form action="apply_coupon.php" method="POST">
+                            <p><input type="text" name="coupon_code" placeholder="Coupon"></p>
+                            <p><input type="submit" value="Apply"></p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
+</div>
 <!-- end cart -->
 
 <!-- logo carousel -->
