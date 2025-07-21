@@ -327,34 +327,7 @@ $deal = $stmt->fetch(PDO::FETCH_ASSOC);
 	</div>
 </div>
 <!-- end latest news -->
-
-
-<!-- logo carousel -->
-<div class="logo-carousel-section">
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-12">
-				<div class="logo-carousel-inner">
-					<?php
-					try {
-						$stmt = $pdo->query("SELECT * FROM company_logos");
-						while ($row = $stmt->fetch()) {
-							echo '<div class="single-logo-item">
-									<img src="' . $row['image_path'] . '" alt="' . htmlspecialchars($row['alt_text']) . '">
-							    </div>';
-						}
-					} catch (PDOException $e) {
-						echo "Error loading logos.";
-					}
-					?>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-
-<!-- end logo carousel -->
-
+ 
 <?php include 'includes/footer.php'; ?>
 
 <!-- jquery -->
