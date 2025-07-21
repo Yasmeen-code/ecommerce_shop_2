@@ -51,7 +51,7 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
           <div class="single-product-item">
             <div class="product-image">
               <a href="single-product.php?id=<?= $product['id'] ?>">
-                <img src="<?= htmlspecialchars($product['image']) ?>" alt="<?= htmlspecialchars($product['name']) ?>" />
+                <img src="assets/img/products/<?= htmlspecialchars($product['image']) ?>" alt="<?= htmlspecialchars($product['name']) ?>" />
               </a>
             </div>
             <h3><?= htmlspecialchars($product['name']) ?></h3>
