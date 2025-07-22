@@ -5,9 +5,7 @@ session_start();
 
 ?>
 
-<!-- ho
-
-me page slider -->
+<!-- home page slider -->
 <div class="homepage-slider">
 	<!-- single home slider -->
 	<div class="single-homepage-slider homepage-bg-1">
@@ -16,10 +14,10 @@ me page slider -->
 				<div class="col-md-12 col-lg-7 offset-lg-1 offset-xl-0">
 					<div class="hero-text">
 						<div class="hero-text-tablecell">
-							<p class="subtitle">Fresh & Organic</p>
-							<h1>Delicious Seasonal Fruits</h1>
+							<p class="subtitle">Unique & Elegant</p>
+							<h1>Stunning Decorative Pieces</h1>
 							<div class="hero-btns">
-								<a href="shop.php" class="boxed-btn">Fruit Collection</a>
+								<a href="shop.php" class="boxed-btn">View Collection</a>
 								<a href="contact.php" class="bordered-btn">Contact Us</a>
 							</div>
 						</div>
@@ -28,17 +26,17 @@ me page slider -->
 			</div>
 		</div>
 	</div>
-	<!-- single home slider -->
+
 	<div class="single-homepage-slider homepage-bg-2">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-10 offset-lg-1 text-center">
 					<div class="hero-text">
 						<div class="hero-text-tablecell">
-							<p class="subtitle">Fresh Everyday</p>
-							<h1>100% Organic Collection</h1>
+							<p class="subtitle">New Designs Everyday</p>
+							<h1>Exclusive Art Collection</h1>
 							<div class="hero-btns">
-								<a href="shop.php" class="boxed-btn">Visit Shop</a>
+								<a href="shop.php" class="boxed-btn">Visit Gallery</a>
 								<a href="contact.php" class="bordered-btn">Contact Us</a>
 							</div>
 						</div>
@@ -47,17 +45,17 @@ me page slider -->
 			</div>
 		</div>
 	</div>
-	<!-- single home slider -->
+
 	<div class="single-homepage-slider homepage-bg-3">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-10 offset-lg-1 text-right">
 					<div class="hero-text">
 						<div class="hero-text-tablecell">
-							<p class="subtitle">Mega Sale Going On!</p>
-							<h1>Get December Discount</h1>
+							<p class="subtitle">Big Sale on Artworks!</p>
+							<h1>Up to 50% Off this Month</h1>
 							<div class="hero-btns">
-								<a href="shop.php" class="boxed-btn">Visit Shop</a>
+								<a href="shop.php" class="boxed-btn">Visit Gallery</a>
 								<a href="contact.php" class="bordered-btn">Contact Us</a>
 							</div>
 						</div>
@@ -119,8 +117,8 @@ me page slider -->
 		<div class="row">
 			<div class="col-lg-8 offset-lg-2 text-center">
 				<div class="section-title">
-					<h3><span class="orange-text">Our</span> Products</h3>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, fuga quas itaque eveniet beatae optio.</p>
+					<h3><span class="orange-text">Our</span> Artworks</h3>
+					<p>Discover a curated collection of handcrafted decorations and artistic ornaments made with love and detail.</p>
 				</div>
 			</div>
 		</div>
@@ -138,7 +136,7 @@ me page slider -->
 							</a>
 						</div>
 						<h3><?= htmlspecialchars($product['name']) ?></h3>
-						<p class="product-price"><span>Per Kg</span> <?= number_format($product['price'], 2) ?>$</p>
+						<p class="product-price"><span>Per Piece</span> <?= number_format($product['price'], 2) ?>$</p>
 
 						<form method="POST" action="add_to_cart.php">
 							<input type="hidden" name="product_id" value="<?= $product['id'] ?>">
@@ -146,9 +144,6 @@ me page slider -->
 								Add to Cart
 							</button>
 						</form>
-						<!-----<a href="cart.php?add=<?= $product['id'] ?>" class="cart-btn">
-							<i class="fas fa-shopping-cart"></i> Add to Cart
-						</a>---->
 					</div>
 				</div>
 			<?php
@@ -167,29 +162,27 @@ ORDER BY d.created_at DESC
 LIMIT 1")->fetch(PDO::FETCH_ASSOC);
 ?>
 
+<!-- deal section -->
 <?php if ($deal): ?>
 	<section class="cart-banner pt-100 pb-100">
 		<div class="container">
 			<div class="row clearfix">
-				<!--Image Column-->
 				<div class="image-column col-lg-6">
 					<div class="image">
 						<div class="price-box">
 							<div class="inner-price">
 								<span class="price">
-									<strong><?= $deal['discount_percent'] ?>%</strong> <br> off per kg
+									<strong><?= $deal['discount_percent'] ?>%</strong> <br> off per piece
 								</span>
 							</div>
 						</div>
 						<img src="assets/img/<?= htmlspecialchars($deal['image']) ?>" alt="">
 					</div>
 				</div>
-				<!--Content Column-->
 				<div class="content-column col-lg-6">
-					<h3><span class="orange-text">Deal</span> of the month</h3>
+					<h3><span class="orange-text">Featured</span> Artwork of the Month</h3>
 					<h4><?= htmlspecialchars($deal['name']) ?></h4>
 					<div class="text"><?= nl2br(htmlspecialchars($deal['description'])) ?></div>
-					<!--Countdown Timer-->
 					<div class="time-counter">
 						<div class="time-countdown clearfix" data-countdown="<?= $deal['end_date'] ?>">
 							<div class="counter-column">
@@ -260,7 +253,7 @@ LIMIT 1")->fetch(PDO::FETCH_ASSOC);
 			<div class="col-lg-6 col-md-12">
 				<div class="abt-text">
 					<p class="top-sub">Since Year 1999</p>
-					<h2>We are <span class="orange-text">Fruitkha</span></h2>
+					<h2>We are <span class="orange-text">DecoCraft</span></h2>
 					<p>Etiam vulputate ut augue vel sodales. In sollicitudin neque et massa porttitor vestibulum ac vel nisi. Vestibulum placerat eget dolor sit amet posuere. In ut dolor aliquet, aliquet sapien sed, interdum velit. Nam eu molestie lorem.</p>
 					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente facilis illo repellat veritatis minus, et labore minima mollitia qui ducimus.</p>
 					<a href="about.php" class="boxed-btn mt-4">know more</a>
@@ -300,7 +293,7 @@ $deal = $stmt->fetch(PDO::FETCH_ASSOC);
 			<div class="col-lg-8 offset-lg-2 text-center">
 				<div class="section-title">
 					<h3><span class="orange-text">Our</span> News</h3>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, fuga quas itaque eveniet beatae optio.</p>
+					<p>Stay updated with the latest trends, stories, and inspirations from the world of handmade crafts and artistic decorations.</p>
 				</div>
 			</div>
 		</div>
@@ -331,7 +324,7 @@ $deal = $stmt->fetch(PDO::FETCH_ASSOC);
 
 		<div class="row">
 			<div class="col-lg-12 text-center">
-				<a href="news.php" class="boxed-btn">More News</a>
+				<a href="news.php" class="boxed-btn">More Articles</a>
 			</div>
 		</div>
 
@@ -341,27 +334,4 @@ $deal = $stmt->fetch(PDO::FETCH_ASSOC);
 
 <?php include 'includes/footer.php'; ?>
 
-<!-- jquery -->
-<script src="assets/js/jquery-1.11.3.min.js"></script>
-<!-- bootstrap -->
-<script src="assets/bootstrap/js/bootstrap.min.js"></script>
-<!-- count down -->
-<script src="assets/js/jquery.countdown.js"></script>
-<!-- isotope -->
-<script src="assets/js/jquery.isotope-3.0.6.min.js"></script>
-<!-- waypoints -->
-<script src="assets/js/waypoints.js"></script>
-<!-- owl carousel -->
-<script src="assets/js/owl.carousel.min.js"></script>
-<!-- magnific popup -->
-<script src="assets/js/jquery.magnific-popup.min.js"></script>
-<!-- mean menu -->
-<script src="assets/js/jquery.meanmenu.min.js"></script>
-<!-- sticker js -->
-<script src="assets/js/sticker.js"></script>
-<!-- main js -->
-<script src="assets/js/main.js"></script>
-
-</body>
-
-</html>
+<

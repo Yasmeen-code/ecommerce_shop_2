@@ -153,62 +153,6 @@ include 'includes/header.php';?>
   </div>
 </div>
 <!-- end latest news -->
-
-
-  <!-- logo carousel -->
-  <div class="logo-carousel-section">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-12">
-          <div class="logo-carousel-inner">
-            <div class="single-logo-item">
-              <img src="assets/img/company-logos/1.png" alt="" />
-            </div>
-            <div class="single-logo-item">
-              <img src="assets/img/company-logos/2.png" alt="" />
-            </div>
-            <div class="single-logo-item">
-              <img src="assets/img/company-logos/3.png" alt="" />
-            </div>
-            <div class="single-logo-item">
-              <img src="assets/img/company-logos/4.png" alt="" />
-            </div>
-            <div class="single-logo-item">
-              <img src="assets/img/company-logos/5.png" alt="" />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- end logo carousel -->
-
   <!-- footer -->
 <?php include 'includes/footer.php'; ?>
   <!-- end footer -->
-
-
-
-  <!-- jquery -->
-  <script src="assets/js/jquery-1.11.3.min.js"></script>
-  <!-- bootstrap -->
-  <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-  <!-- count down -->
-  <script src="assets/js/jquery.countdown.js"></script>
-  <!-- isotope -->
-  <script src="assets/js/jquery.isotope-3.0.6.min.js"></script>
-  <!-- waypoints -->
-  <script src="assets/js/waypoints.js"></script>
-  <!-- owl carousel -->
-  <script src="assets/js/owl.carousel.min.js"></script>
-  <!-- magnific popup -->
-  <script src="assets/js/jquery.magnific-popup.min.js"></script>
-  <!-- mean menu -->
-  <script src="assets/js/jquery.meanmenu.min.js"></script>
-  <!-- sticker js -->
-  <script src="assets/js/sticker.js"></script>
-  <!-- main js -->
-  <script src="assets/js/main.js"></script>
-</body>
-
-</html>

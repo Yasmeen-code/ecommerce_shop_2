@@ -2,7 +2,7 @@
 session_start();
 require_once 'includes/db.php';
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
@@ -12,12 +12,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if ($user && password_verify($password, $user['password'])) {
         $_SESSION['user_id'] = $user['id'];
-        header("Location: index.php");
-        exit;
+        $_SESSION['user_role'] = $user['role'];
+
+        if ($user['role'] === 'admin') {
+            header("Location: admin/control-panel.php");
+        } else {
+            header("Location: index.php");
+        }
+        exit();
     } else {
         $error = "Invalid email or password.";
     }
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -94,6 +101,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </style>
 </head>
 <body>
+    
     <div class="login-container">
         <form method="post">
             <h2><i class="fa-solid fa-right-to-bracket"></i> Login</h2>

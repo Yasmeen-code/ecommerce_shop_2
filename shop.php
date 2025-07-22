@@ -2,16 +2,44 @@
 session_start();
 include 'includes/db.php';
 include 'includes/header.php';
-
 $categories = $pdo->query("SELECT * FROM categories")->fetchAll(PDO::FETCH_ASSOC);
 
 $stmt = $pdo->query("
-  SELECT products.*, categories.name AS category_name 
+  SELECT products.*, categories.category_name AS category_name 
   FROM products 
   JOIN categories ON products.category_id = categories.id
 ");
 $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
+<?php
+$limit = 6; 
+
+$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+
+$offset = ($page - 1) * $limit;
+
+$totalProductsStmt = $pdo->query("SELECT COUNT(*) FROM products");
+$totalProducts = $totalProductsStmt->fetchColumn();
+
+$totalPages = ceil($totalProducts / $limit);
+
+$stmt = $pdo->prepare("
+    SELECT products.*, categories.category_name
+    FROM products
+    JOIN categories ON products.category_id = categories.id
+    ORDER BY products.id DESC
+    LIMIT :limit OFFSET :offset
+");
+
+$stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+$stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+$stmt->execute();
+$products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+$catStmt = $pdo->query("SELECT * FROM categories");
+$categories = $catStmt->fetchAll(PDO::FETCH_ASSOC);
+?>
+
 <!-- breadcrumb-section -->
 <div class="breadcrumb-section breadcrumb-bg">
   <div class="container">
@@ -37,7 +65,8 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
           <ul>
             <li class="active" data-filter="*">All</li>
             <?php foreach ($categories as $cat): ?>
-              <li data-filter=".<?= strtolower($cat['name']) ?>"><?= htmlspecialchars($cat['name']) ?></li>
+              <?php $className = strtolower(str_replace([' ', '&'], ['-', 'and'], $cat['category_name'])); ?>
+              <li data-filter=".<?= $className ?>"><?= htmlspecialchars($cat['category_name']) ?></li>
             <?php endforeach; ?>
           </ul>
         </div>
@@ -46,8 +75,10 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     <div class="row product-lists">
       <?php foreach ($products as $product): ?>
-        <?php $categoryClass = strtolower($product['category_name']); ?>
-        <div class="col-lg-4 col-md-6 text-center <?= $categoryClass ?>">
+        <?php 
+          $className = strtolower(str_replace([' ', '&'], ['-', 'and'], $product['category_name']));
+        ?>
+        <div class="col-lg-4 col-md-6 text-center <?= $className ?>">
           <div class="single-product-item">
             <div class="product-image">
               <a href="single-product.php?id=<?= $product['id'] ?>">
@@ -55,7 +86,7 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
               </a>
             </div>
             <h3><?= htmlspecialchars($product['name']) ?></h3>
-            <p class="product-price"><span>Per Kg</span> <?= $product['price'] ?>$</p>
+            <p class="product-price"><?= $product['price'] ?>$</p>
 
             <form method="POST" action="add_to_cart.php">
               <input type="hidden" name="product_id" value="<?= $product['id'] ?>">
@@ -66,76 +97,53 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
       <?php endforeach; ?>
     </div>
 
-    <div class="row">
-      <div class="col-lg-12 text-center">
-        <div class="pagination-wrap">
-          <ul>
-            <li><a href="#">Prev</a></li>
-            <li><a class="active" href="#">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">Next</a></li>
-          </ul>
-        </div>
-      </div>
+    <!-- pagination -->
+<div class="row">
+  <div class="col-lg-12 text-center">
+    <div class="pagination-wrap">
+      <ul>
+        <?php if ($page > 1): ?>
+          <li><a href="?page=<?= $page - 1 ?>">Prev</a></li>
+        <?php endif; ?>
+
+        <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+          <li><a class="<?= $i == $page ? 'active' : '' ?>" href="?page=<?= $i ?>"><?= $i ?></a></li>
+        <?php endfor; ?>
+
+        <?php if ($page < $totalPages): ?>
+          <li><a href="?page=<?= $page + 1 ?>">Next</a></li>
+        <?php endif; ?>
+      </ul>
     </div>
+  </div>
+</div>
+
 
   </div>
 </div>
 <!-- end products -->
 
-<!-- logo carousel -->
-<div class="logo-carousel-section">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="logo-carousel-inner">
-          <div class="single-logo-item">
-            <img src="assets/img/company-logos/1.png" alt="" />
-          </div>
-          <div class="single-logo-item">
-            <img src="assets/img/company-logos/2.png" alt="" />
-          </div>
-          <div class="single-logo-item">
-            <img src="assets/img/company-logos/3.png" alt="" />
-          </div>
-          <div class="single-logo-item">
-            <img src="assets/img/company-logos/4.png" alt="" />
-          </div>
-          <div class="single-logo-item">
-            <img src="assets/img/company-logos/5.png" alt="" />
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- end logo carousel -->
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function(){
+    $('.product-filters li').click(function(){
+      var filterValue = $(this).attr('data-filter');
+
+      $('.product-filters li').removeClass('active');
+      $(this).addClass('active');
+
+      if(filterValue == '*') {
+        $('.product-lists > div').show(300);
+      } else {
+        $('.product-lists > div').hide(300);
+        $('.product-lists > div' + filterValue).show(300);
+      }
+    });
+  });
+</script>
+
 
 <!-- footer -->
 <?php include 'includes/footer.php'; ?>
 <!-- end footer -->
-
-<!-- jquery -->
-<script src="assets/js/jquery-1.11.3.min.js"></script>
-<!-- bootstrap -->
-<script src="assets/bootstrap/js/bootstrap.min.js"></script>
-<!-- count down -->
-<script src="assets/js/jquery.countdown.js"></script>
-<!-- isotope -->
-<script src="assets/js/jquery.isotope-3.0.6.min.js"></script>
-<!-- waypoints -->
-<script src="assets/js/waypoints.js"></script>
-<!-- owl carousel -->
-<script src="assets/js/owl.carousel.min.js"></script>
-<!-- magnific popup -->
-<script src="assets/js/jquery.magnific-popup.min.js"></script>
-<!-- mean menu -->
-<script src="assets/js/jquery.meanmenu.min.js"></script>
-<!-- sticker js -->
-<script src="assets/js/sticker.js"></script>
-<!-- main js -->
-<script src="assets/js/main.js"></script>
-</body>
-
-</html>
