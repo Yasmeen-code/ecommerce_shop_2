@@ -5,9 +5,9 @@ session_start();
 
 ?>
 
+<!-- ho
 
-
-<!-- home page slider -->
+me page slider -->
 <div class="homepage-slider">
 	<!-- single home slider -->
 	<div class="single-homepage-slider homepage-bg-1">

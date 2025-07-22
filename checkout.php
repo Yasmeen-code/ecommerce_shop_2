@@ -11,7 +11,6 @@ if (!isset($_SESSION['user_id'])) {
 
 $user_id = $_SESSION['user_id'];
 
-// جلب بيانات السلة
 $stmt = $pdo->prepare("SELECT ci.*, p.name, p.price, p.image FROM cart_items ci JOIN products p ON ci.product_id = p.id WHERE ci.user_id = ?");
 $stmt->execute([$user_id]);
 $cartItems = $stmt->fetchAll();
@@ -24,23 +23,23 @@ $shipping = 50;
 $total = $subtotal + $shipping;
 ?>
 
-  <!-- breadcrumb-section -->
-  <div class="breadcrumb-section breadcrumb-bg">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-8 offset-lg-2 text-center">
-          <div class="breadcrumb-text">
-            <p>Fresh and Organic</p>
-            <h1>Check Out Product</h1>
-          </div>
+<!-- breadcrumb-section -->
+<div class="breadcrumb-section breadcrumb-bg">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 offset-lg-2 text-center">
+        <div class="breadcrumb-text">
+          <p>Elegant & Handcrafted</p>
+          <h1>Checkout Decorative Items</h1>
         </div>
       </div>
     </div>
   </div>
-  <!-- end breadcrumb section -->
+</div>
+<!-- end breadcrumb section -->
 
-  <!-- check out section -->
-  <div class="checkout-section mt-150 mb-150">
+<!-- check out section -->
+<div class="checkout-section mt-150 mb-150">
   <div class="container">
     <div class="row">
       <!-- Left Side -->
@@ -52,17 +51,19 @@ $total = $subtotal + $shipping;
               <div class="card single-accordion">
                 <div class="card-header" id="headingOne">
                   <h5 class="mb-0">
-                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">Billing Address</button>
+                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                      Billing Information
+                    </button>
                   </h5>
                 </div>
                 <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
                   <div class="card-body">
                     <div class="billing-address-form">
-                      <p><input type="text" name="name" placeholder="Name" required /></p>
-                      <p><input type="email" name="email" placeholder="Email" required /></p>
-                      <p><input type="text" name="address" placeholder="Address" required /></p>
-                      <p><input type="tel" name="phone" placeholder="Phone" required /></p>
-                      <p><textarea name="notes" cols="30" rows="10" placeholder="Say Something"></textarea></p>
+                      <p><input type="text" name="name" placeholder="Full Name" required /></p>
+                      <p><input type="email" name="email" placeholder="Email Address" required /></p>
+                      <p><input type="text" name="address" placeholder="Shipping Address" required /></p>
+                      <p><input type="tel" name="phone" placeholder="Phone Number" required /></p>
+                      <p><textarea name="notes" cols="30" rows="10" placeholder="Additional Notes (e.g., delivery preferences)"></textarea></p>
                     </div>
                   </div>
                 </div>
@@ -72,13 +73,15 @@ $total = $subtotal + $shipping;
               <div class="card single-accordion">
                 <div class="card-header" id="headingTwo">
                   <h5 class="mb-0">
-                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">Shipping Address</button>
+                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                      Shipping Details
+                    </button>
                   </h5>
                 </div>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
                   <div class="card-body">
                     <div class="shipping-address-form">
-                      <p>Shipping same as billing.</p>
+                      <p>Shipping address will be the same as billing address unless otherwise specified.</p>
                     </div>
                   </div>
                 </div>
@@ -88,13 +91,15 @@ $total = $subtotal + $shipping;
               <div class="card single-accordion">
                 <div class="card-header" id="headingThree">
                   <h5 class="mb-0">
-                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">Card Details</button>
+                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                      Payment Method
+                    </button>
                   </h5>
                 </div>
                 <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
                   <div class="card-body">
                     <div class="card-details">
-                      <p>Payment will be on delivery.</p>
+                      <p>All orders are payable on delivery. No card information needed at this stage.</p>
                     </div>
                   </div>
                 </div>
@@ -109,13 +114,13 @@ $total = $subtotal + $shipping;
           <table class="order-details">
             <thead>
               <tr>
-                <th>Your order Details</th>
-                <th>Price</th>
+                <th>Your Order Summary</th>
+                <th>Amount</th>
               </tr>
             </thead>
             <tbody class="order-details-body">
               <tr>
-                <td>Product</td>
+                <td>Item</td>
                 <td>Total</td>
               </tr>
               <?php foreach ($cartItems as $item): ?>
@@ -151,7 +156,7 @@ $total = $subtotal + $shipping;
     </div>
   </div>
 </div>
-  <!-- end check out section -->
+<!-- end check out section -->
 
   <!-- logo carousel -->
   <div class="logo-carousel-section">
