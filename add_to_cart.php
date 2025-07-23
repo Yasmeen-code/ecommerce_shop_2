@@ -6,7 +6,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['product_id'])) {
     $product_id = intval($_POST['product_id']);
 
     if ($product_id <= 0) {
-        die("❌ Invalid product_id.");
+        die("Invalid product_id.");
     }
 
     if (!isset($_SESSION['user_id'])) {
@@ -31,5 +31,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['product_id'])) {
     header('Location: cart.php');
     exit;
 } else {
-    die("❌ Invalid Request: Missing product_id.");
+    die("Invalid Request: Missing product_id.");
 }
