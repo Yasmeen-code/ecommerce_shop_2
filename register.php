@@ -9,7 +9,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stmt = $pdo->prepare("INSERT INTO users (name, email, password) VALUES (?, ?, ?)");
     $stmt->execute([$name, $email, $password]);
 
-    $success = "Account created successfully! You can now login.";
+    header("Location: login.php");
+    exit();
 }
 ?>
 

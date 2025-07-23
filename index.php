@@ -164,7 +164,7 @@ LIMIT 1")->fetch(PDO::FETCH_ASSOC);
 
 <!-- deal section -->
 <?php if ($deal): ?>
-	<section class="cart-banner pt-100 pb-100">
+	<section class="cart-banner pt-100 pb-100" style="background-color: #eaeaea">
 		<div class="container">
 			<div class="row clearfix">
 				<div class="image-column col-lg-6">
@@ -176,7 +176,7 @@ LIMIT 1")->fetch(PDO::FETCH_ASSOC);
 								</span>
 							</div>
 						</div>
-						<img src="assets/img/<?= htmlspecialchars($deal['image']) ?>" alt="">
+						<img src="assets/img/<?= htmlspecialchars($deal['image']) ?>" alt=""  >
 					</div>
 				</div>
 				<div class="content-column col-lg-6">
@@ -266,7 +266,7 @@ LIMIT 1")->fetch(PDO::FETCH_ASSOC);
 
 <!-- shop banner -->
 <?php
-$stmt = $pdo->prepare("SELECT * FROM deals WHERE end_date >= NOW() and id='2' ORDER BY created_at DESC LIMIT 1");
+$stmt = $pdo->prepare("SELECT * FROM deals WHERE end_date >= NOW() and id='3' ORDER BY created_at DESC LIMIT 1");
 $stmt->execute();
 $deal = $stmt->fetch(PDO::FETCH_ASSOC);
 ?>
@@ -334,4 +334,3 @@ $deal = $stmt->fetch(PDO::FETCH_ASSOC);
 
 <?php include 'includes/footer.php'; ?>
 
-<

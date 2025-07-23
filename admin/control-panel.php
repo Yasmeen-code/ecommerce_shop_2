@@ -2,7 +2,6 @@
 session_start();
 require_once '../includes/db.php';
 
-// تأكد أن المستخدم Admin
 if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'admin') {
     header("Location: ../login.php");
     exit();
@@ -18,7 +17,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $category_id = $_POST['category_id'];
     $created_at = date('Y-m-d H:i:s');
 
-    // حفظ الصورة
     $imageName = $_FILES['image']['name'];
     $imageTmp = $_FILES['image']['tmp_name'];
     $imagePath = '../assets/img/' . $imageName;

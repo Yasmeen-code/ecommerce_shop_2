@@ -33,10 +33,6 @@
 	<link rel="stylesheet" href="assets/css/responsive.css">
 	<script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
 
-
-
-
-
 </head>
 
 <body>
