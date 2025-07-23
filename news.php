@@ -1,8 +1,8 @@
 <?php
 session_start();
 include 'includes/db.php';
-include 'includes/header.php';?>
- <!-- breadcrumb-section -->
+include 'includes/header.php'; ?>
+<!-- breadcrumb-section -->
 <div class="breadcrumb-section breadcrumb-bg">
   <div class="container">
     <div class="row">
@@ -153,6 +153,6 @@ include 'includes/header.php';?>
   </div>
 </div>
 <!-- end latest news -->
-  <!-- footer -->
+<!-- footer -->
 <?php include 'includes/footer.php'; ?>
-  <!-- end footer -->
+<!-- end footer -->

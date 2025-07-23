@@ -1,11 +1,7 @@
 <?php
 session_start();
- include 'includes/db.php'; ?>
-<?php include 'includes/header.php'; 
-
-
-?>
-
+include 'includes/db.php'; ?>
+<?php include 'includes/header.php';?>
 <!-- home page slider -->
 <div class="homepage-slider">
 	<!-- single home slider -->
@@ -177,7 +173,7 @@ LIMIT 1")->fetch(PDO::FETCH_ASSOC);
 								</span>
 							</div>
 						</div>
-						<img src="assets/img/<?= htmlspecialchars($deal['image']) ?>" alt=""  >
+						<img src="assets/img/<?= htmlspecialchars($deal['image']) ?>" alt="">
 					</div>
 				</div>
 				<div class="content-column col-lg-6">
@@ -273,7 +269,6 @@ $deal = $stmt->fetch(PDO::FETCH_ASSOC);
 ?>
 
 <?php if ($deal): ?>
-	<!-- dynamic shop banner -->
 	<section class="shop-banner" style="background-image: url('assets/img/<?php echo $deal['image']; ?>'); background-size: cover; background-position: center;">
 		<div class="container">
 			<h3><?php echo $deal['description']; ?> <br> with <span class="orange-text"><?php echo $deal['discount_percent']; ?>% OFF</span></h3>
@@ -281,7 +276,6 @@ $deal = $stmt->fetch(PDO::FETCH_ASSOC);
 			<a href="shop.php" class="cart-btn btn-lg">Shop Now</a>
 		</div>
 	</section>
-	<!-- end dynamic shop banner -->
 <?php endif; ?>
 
 <!-- end shop banner -->
@@ -334,4 +328,3 @@ $deal = $stmt->fetch(PDO::FETCH_ASSOC);
 <!-- end latest news -->
 
 <?php include 'includes/footer.php'; ?>
-

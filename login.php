@@ -24,11 +24,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $error = "Invalid email or password.";
     }
 }
-
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
@@ -42,6 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             align-items: center;
             height: 100vh;
         }
+
         .login-container {
             background: #fff;
             padding: 30px 40px;
@@ -49,21 +49,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             width: 360px;
         }
+
         h2 {
             text-align: center;
             margin-bottom: 20px;
             color: #333;
         }
+
         .form-group {
             margin-bottom: 15px;
             position: relative;
         }
+
         .form-group input {
             width: 100%;
             padding: 10px 10px 10px 12px;
             border-radius: 5px;
             border: 1px solid #ccc;
         }
+
         button {
             width: 100%;
             background: #5cb85c;
@@ -75,9 +79,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             margin-top: 10px;
             cursor: pointer;
         }
+
         button:hover {
             background: #4cae4c;
         }
+
         .error {
             color: #a94442;
             background: #f2dede;
@@ -86,22 +92,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             border-radius: 5px;
             text-align: center;
         }
+
         .register-link {
             text-align: center;
             margin-top: 15px;
             font-size: 14px;
         }
+
         .register-link a {
             color: #007bff;
             text-decoration: none;
         }
+
         .register-link a:hover {
             text-decoration: underline;
         }
     </style>
 </head>
+
 <body>
-    
+
     <div class="login-container">
         <form method="post">
             <h2><i class="fa-solid fa-right-to-bracket"></i> Login</h2>
@@ -121,4 +131,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </form>
     </div>
 </body>
+
 </html>
