@@ -12,7 +12,7 @@ $stmt = $pdo->query("
 $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <?php
-$limit = 6; 
+$limit = 6;
 
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 
@@ -75,8 +75,8 @@ $categories = $catStmt->fetchAll(PDO::FETCH_ASSOC);
 
     <div class="row product-lists">
       <?php foreach ($products as $product): ?>
-        <?php 
-          $className = strtolower(str_replace([' ', '&'], ['-', 'and'], $product['category_name']));
+        <?php
+        $className = strtolower(str_replace([' ', '&'], ['-', 'and'], $product['category_name']));
         ?>
         <div class="col-lg-4 col-md-6 text-center <?= $className ?>">
           <div class="single-product-item">
@@ -96,44 +96,39 @@ $categories = $catStmt->fetchAll(PDO::FETCH_ASSOC);
         </div>
       <?php endforeach; ?>
     </div>
-
     <!-- pagination -->
-<div class="row">
-  <div class="col-lg-12 text-center">
-    <div class="pagination-wrap">
-      <ul>
-        <?php if ($page > 1): ?>
-          <li><a href="?page=<?= $page - 1 ?>">Prev</a></li>
-        <?php endif; ?>
+    <div class="row">
+      <div class="col-lg-12 text-center">
+        <div class="pagination-wrap">
+          <ul>
+            <?php if ($page > 1): ?>
+              <li><a href="?page=<?= $page - 1 ?>">Prev</a></li>
+            <?php endif; ?>
 
-        <?php for ($i = 1; $i <= $totalPages; $i++): ?>
-          <li><a class="<?= $i == $page ? 'active' : '' ?>" href="?page=<?= $i ?>"><?= $i ?></a></li>
-        <?php endfor; ?>
+            <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+              <li><a class="<?= $i == $page ? 'active' : '' ?>" href="?page=<?= $i ?>"><?= $i ?></a></li>
+            <?php endfor; ?>
 
-        <?php if ($page < $totalPages): ?>
-          <li><a href="?page=<?= $page + 1 ?>">Next</a></li>
-        <?php endif; ?>
-      </ul>
+            <?php if ($page < $totalPages): ?>
+              <li><a href="?page=<?= $page + 1 ?>">Next</a></li>
+            <?php endif; ?>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
 </div>
-
-
-  </div>
-</div>
 <!-- end products -->
-
-
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-  $(document).ready(function(){
-    $('.product-filters li').click(function(){
+  $(document).ready(function() {
+    $('.product-filters li').click(function() {
       var filterValue = $(this).attr('data-filter');
 
       $('.product-filters li').removeClass('active');
       $(this).addClass('active');
 
-      if(filterValue == '*') {
+      if (filterValue == '*') {
         $('.product-lists > div').show(300);
       } else {
         $('.product-lists > div').hide(300);
@@ -142,8 +137,6 @@ $categories = $catStmt->fetchAll(PDO::FETCH_ASSOC);
     });
   });
 </script>
-
-
 <!-- footer -->
 <?php include 'includes/footer.php'; ?>
 <!-- end footer -->

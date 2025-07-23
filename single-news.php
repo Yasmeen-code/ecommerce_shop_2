@@ -23,7 +23,7 @@ $stmt2 = $pdo->prepare("
     WHERE c.news_id = ?
     ORDER BY c.created_at DESC
 ");
-$stmt2->execute([$id]); // $id هو news_id
+$stmt2->execute([$id]); 
 $comments = $stmt2->fetchAll();
 
 ?>
@@ -49,7 +49,6 @@ $comments = $stmt2->fetchAll();
       <div class="col-lg-8">
         <div class="single-article-section">
           <div class="single-article-text">
-
             <div class="single-artcile-bg mb-4" style="margin-bottom: 20px;">
               <img
                 src="assets/img/latest-news/<?php echo htmlspecialchars($news['image']); ?>"
@@ -57,7 +56,6 @@ $comments = $stmt2->fetchAll();
                 class="img-fluid rounded"
                 style="display: block; width: 150%; height: auto; max-height: 900px; object-fit: cover; margin-bottom: 20px;" />
             </div>
-
             <div class="mb-4" style="padding: 10px; background-color: #fff; border-radius: 10px;">
               <p class="blog-meta mb-2 text-muted">
                 <span class="author me-3"><i class="fas fa-user"></i> <?php echo htmlspecialchars($news['author']); ?></span>
@@ -66,10 +64,7 @@ $comments = $stmt2->fetchAll();
               <h2 class="mb-3"><?php echo htmlspecialchars($news['title']); ?></h2>
               <p style="line-height: 1.8;"><?php echo nl2br(htmlspecialchars($news['content'])); ?></p>
             </div>
-
           </div>
-
-
           <div class="comments-list-wrap">
             <h3 class="comment-count-title"><?= count($comments) ?> Comments</h3>
             <div class="comment-list">
@@ -89,22 +84,19 @@ $comments = $stmt2->fetchAll();
               <?php endforeach; ?>
             </div>
           </div>
-
-
-            	<div class="comment-template">
-          <form action="add_comment.php" method="POST">
-            <input type="hidden" name="news_id" value="<?php echo $news['id']; ?>"> <!-- استبدلي 1 بـ ID الحقيقي للخبر -->
-            <p>
-              <input type="text" name="name" placeholder="Your Name" required />
-              <input type="email" name="email" placeholder="Your Email" required />
-            </p>
-            <p>
-              <textarea name="comment" cols="30" rows="10" placeholder="Your Message" required></textarea>
-            </p>
-            <p><input type="submit" value="Submit" /></p>
-          </form>
-              </div>
-
+          <div class="comment-template">
+            <form action="add_comment.php" method="POST">
+              <input type="hidden" name="news_id" value="<?php echo $news['id']; ?>">
+              <p>
+                <input type="text" name="name" placeholder="Your Name" required />
+                <input type="email" name="email" placeholder="Your Email" required />
+              </p>
+              <p>
+                <textarea name="comment" cols="30" rows="10" placeholder="Your Message" required></textarea>
+              </p>
+              <p><input type="submit" value="Submit" /></p>
+            </form>
+          </div>
         </div>
       </div>
       <div class="col-lg-4">
@@ -120,7 +112,6 @@ $comments = $stmt2->fetchAll();
               ?>
             </ul>
           </div>
-
           <div class="archive-posts">
             <h4>Archive Posts</h4>
             <ul>
@@ -147,7 +138,6 @@ $comments = $stmt2->fetchAll();
               ?>
             </ul>
           </div>
-
         </div>
       </div>
     </div>

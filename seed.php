@@ -15,7 +15,7 @@ try {
         $stmt->execute(['name' => $tag]);
     }
 
-    echo "✅ Tags inserted successfully.<br>";
+    echo "Tags inserted successfully.<br>";
 
     $relations = [
         ['news_id' => 1, 'tag_id' => 1], 
@@ -34,10 +34,10 @@ try {
         ]);
     }
 
-    echo "✅ Tag relations inserted successfully.<br>";
+    echo "Tag relations inserted successfully.<br>";
 
 } catch (PDOException $e) {
-    echo "❌ Error: " . $e->getMessage();
+    echo "Error: " . $e->getMessage();
 }
 
 $conn = null;
