@@ -1,46 +1,44 @@
 <?php
-require_once 'includes/db.php';
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "ecommerce_db";
 
 try {
-    // بيانات الفوتر الرئيسية
-    $stmt = $pdo->prepare("
-        INSERT INTO footer_settings 
-        (about_title, about_text, contact_title, address, email, phone, pages_title, subscribe_title, subscribe_text)
-        VALUES
-        (:about_title, :about_text, :contact_title, :address, :email, :phone, :pages_title, :subscribe_title, :subscribe_text)
-    ");
+    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    $stmt->execute([
-        ':about_title' => 'About us',
-        ':about_text' => 'Ut enim ad minim veniam perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae.',
-        ':contact_title' => 'Get in Touch',
-        ':address' => '34/8, East Hukupara, Gifirtok, Sadan.',
-        ':email' => 'support@fruitkha.com',
-        ':phone' => '+00 111 222 3333',
-        ':pages_title' => 'Pages',
-        ':subscribe_title' => 'Subscribe',
-        ':subscribe_text' => 'Subscribe to our mailing list to get the latest updates.',
-    ]);
+    $tags = ['Glass', 'Ornament', 'Mosaic', 'Handcraft', 'Decoration', 'Culture', 'Art', 'Design', 'Ceramic', 'Vintage', 'Modern', 'Traditional', 'Contemporary', 'Craftsmanship'];
+    $stmt = $conn->prepare("INSERT INTO news_tags (name) VALUES (:name)");
 
-    // الصفحات
-    $pages = [
-        ['Home', 'index.php'],
-        ['About', 'about.php'],
-        ['Shop', 'services.html'],
-        ['News', 'news.php'],
-        ['Contact', 'contact.php'],
+    foreach ($tags as $tag) {
+        $stmt->execute(['name' => $tag]);
+    }
+
+    echo "✅ Tags inserted successfully.<br>";
+
+    $relations = [
+        ['news_id' => 1, 'tag_id' => 1], 
+        ['news_id' => 1, 'tag_id' => 5], 
+        ['news_id' => 2, 'tag_id' => 2], 
+        ['news_id' => 2, 'tag_id' => 4], 
+        ['news_id' => 3, 'tag_id' => 3], 
     ];
 
-    $stmtPage = $pdo->prepare("INSERT INTO footer_pages (page_name, page_link) VALUES (:name, :link)");
-    foreach ($pages as $page) {
-        $stmtPage->execute([
-            ':name' => $page[0],
-            ':link' => $page[1]
+    $stmt = $conn->prepare("INSERT INTO news_tag_relation (news_id, tag_id) VALUES (:news_id, :tag_id)");
+
+    foreach ($relations as $rel) {
+        $stmt->execute([
+            'news_id' => $rel['news_id'],
+            'tag_id' => $rel['tag_id']
         ]);
     }
 
-    echo "Footer data inserted successfully.";
+    echo "✅ Tag relations inserted successfully.<br>";
+
 } catch (PDOException $e) {
-    echo "Error seeding footer data: " . $e->getMessage();
+    echo "❌ Error: " . $e->getMessage();
 }
+
+$conn = null;
 ?>
