@@ -82,7 +82,7 @@
 	<div class="container">
 		<h3>Decor Sale is On! <br> with exclusive <span class="orange-text">Discounts...</span></h3>
 		<div class="sale-percent"><span>Sale! <br> Up to</span>50% <span>off</span></div>
-		<a href="shop.php" class="cart-btn btn-lg">Shop Now</a>
+		<a href="shop.php" class="cart-btn1 btn-lg" style="border-radius: 20px; border: none;">Shop Now</a>
 	</div>
 </section>
 <!-- end shop banner -->
