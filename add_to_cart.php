@@ -4,9 +4,10 @@ require_once 'includes/db.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['product_id'])) {
     $product_id = intval($_POST['product_id']);
+    $quantity = isset($_POST['quantity']) ? intval($_POST['quantity']) : 1;
 
-    if ($product_id <= 0) {
-        die("Invalid product_id.");
+    if ($product_id <= 0 || $quantity <= 0) {
+        die("Invalid product_id or quantity.");
     }
 
     if (!isset($_SESSION['user_id'])) {
@@ -21,11 +22,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['product_id'])) {
     $item = $stmt->fetch();
 
     if ($item) {
-        $updateStmt = $pdo->prepare("UPDATE cart_items SET quantity = quantity + 1 WHERE id = ?");
-        $updateStmt->execute([$item['id']]);
+        $updateStmt = $pdo->prepare("UPDATE cart_items SET quantity = quantity + ? WHERE id = ?");
+        $updateStmt->execute([$quantity, $item['id']]);
     } else {
-        $insertStmt = $pdo->prepare("INSERT INTO cart_items (user_id, product_id, quantity) VALUES (?, ?, 1)");
-        $insertStmt->execute([$user_id, $product_id]);
+        $insertStmt = $pdo->prepare("INSERT INTO cart_items (user_id, product_id, quantity) VALUES (?, ?, ?)");
+        $insertStmt->execute([$user_id, $product_id, $quantity]);
     }
 
     header('Location: cart.php');
