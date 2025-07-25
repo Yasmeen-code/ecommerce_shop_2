@@ -4,7 +4,7 @@ session_start();
 include 'includes/header.php';
 require_once 'includes/db.php';
 
- ?>
+?>
 
 <!-- breadcrumb-section -->
 <div class="breadcrumb-section breadcrumb-bg">
@@ -44,11 +44,11 @@ require_once 'includes/db.php';
             <form action="index.php">
               <input type="number" placeholder="0" />
             </form>
-        
-<form action="add_to_cart.php" method="POST">
-    <input type="hidden" name="product_id" value="1"> <!-- ← ID حقيقي من جدول products -->
-    <button type="submit">Add to Cart</button>
-</form>
+
+            <form action="add_to_cart.php" method="POST">
+              <input type="hidden" name="product_id" value="1"> <!-- ← ID حقيقي من جدول products -->
+              <button type="submit">Add to Cart</button>
+            </form>
 
             <!-- <a href="cart.php" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>-->
             <p><strong>Categories: </strong>Fruits, Organic</p>

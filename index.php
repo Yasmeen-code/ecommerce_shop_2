@@ -1,7 +1,7 @@
 <?php
 session_start();
 include 'includes/db.php'; ?>
-<?php include 'includes/header.php';?>
+<?php include 'includes/header.php'; ?>
 <!-- home page slider -->
 <div class="homepage-slider">
 	<!-- single home slider -->
@@ -122,7 +122,7 @@ include 'includes/db.php'; ?>
 
 		<div class="row">
 			<?php
-			$stmt = $pdo->query("SELECT * FROM products LIMIT 6");
+			$stmt = $pdo->query("SELECT * FROM products LIMIT 3");
 			while ($product = $stmt->fetch(PDO::FETCH_ASSOC)) {
 			?>
 				<div class="col-lg-4 col-md-6 text-center">
@@ -135,10 +135,10 @@ include 'includes/db.php'; ?>
 						<h3><?= htmlspecialchars($product['name']) ?></h3>
 						<p class="product-price"><span>Per Piece</span> <?= number_format($product['price'], 2) ?>$</p>
 
-						<form method="POST" action="add_to_cart.php">
+						<form method="POST" action="add_to_cart.php" style="display:inline;">
 							<input type="hidden" name="product_id" value="<?= $product['id'] ?>">
-							<button type="submit" name="add_to_cart" class="cart-btn">
-								Add to Cart
+							<button type="submit" name="add_to_cart" class="cart-btn1" style="border: none; cursor: pointer; border-radius: 20px; ">
+								<i class="fas fa-shopping-cart"></i> Add to Cart
 							</button>
 						</form>
 					</div>
@@ -150,6 +150,7 @@ include 'includes/db.php'; ?>
 	</div>
 </div>
 <!-- end product section -->
+
 
 <!-- cart banner section -->
 <?php
@@ -196,7 +197,7 @@ LIMIT 1")->fetch(PDO::FETCH_ASSOC);
 							</div>
 						</div>
 					</div>
-					<a href="cart.php?add=<?= $deal['product_id'] ?>" class="cart-btn mt-3"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+					<a href="cart.php?add=<?= $deal['product_id'] ?>" class="cart-btn1 mt-3" style="border-radius: 20px;"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
 				</div>
 			</div>
 		</div>
@@ -273,7 +274,7 @@ $deal = $stmt->fetch(PDO::FETCH_ASSOC);
 		<div class="container">
 			<h3><?php echo $deal['description']; ?> <br> with <span class="orange-text"><?php echo $deal['discount_percent']; ?>% OFF</span></h3>
 			<div class="sale-percent"><span>Sale!</span> <?php echo $deal['discount_percent']; ?>% <span>off</span></div>
-			<a href="shop.php" class="cart-btn btn-lg">Shop Now</a>
+			<a href="shop.php" class="cart-btn1 btn-lg" style="border-radius: 20px;">Shop Now</a>
 		</div>
 	</section>
 <?php endif; ?>

@@ -1,44 +1,61 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "ecommerce_db";
+require 'includes/db.php'; // أو عدلي حسب مكان الاتصال بقاعدة البيانات
 
-try {
-    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+$newsItems = [
+    [
+        'title' => 'Timeless Ceramic Art for Modern Spaces',
+        'author' => 'Admin',
+        'date' => '2025-03-12',
+        'excerpt' => 'Explore how handcrafted ceramic pieces are adding warmth and character to contemporary interiors.',
+        'image' => 'news-bg-1.jpg',
+        'content' => 'Full article content about ceramic art for modern spaces...',
+    ],
+    [
+        'title' => 'The Return of Vintage Glassware in Decor',
+        'author' => 'Admin',
+        'date' => '2025-03-08',
+        'excerpt' => 'Discover how vintage glass designs are making a stunning comeback in decorative trends.',
+        'image' => 'news-bg-2.jpg',
+        'content' => 'Full article content about vintage glassware trends...',
+    ],
+    [
+        'title' => 'Textile Wall Art: A Soft Touch of Tradition',
+        'author' => 'Admin',
+        'date' => '2025-03-05',
+        'excerpt' => 'From tapestries to handwoven panels, textile decor is bringing stories and softness to walls.',
+        'image' => 'news-bg-3.jpg',
+        'content' => 'Full article content about textile wall art...',
+    ],
+    [
+        'title' => 'Decorative Pottery That Tells a Story',
+        'author' => 'Admin',
+        'date' => '2025-03-02',
+        'excerpt' => 'Dive into the world of pottery pieces that combine function and artistic storytelling.',
+        'image' => 'news-bg-4.jpg',
+        'content' => 'Full article content about story-telling pottery...',
+    ],
+    [
+        'title' => 'How Handmade Decorations Add Soul to Homes',
+        'author' => 'Admin',
+        'date' => '2025-02-28',
+        'excerpt' => 'Learn how hand-crafted ornaments make living spaces feel more personal and inviting.',
+        'image' => 'news-bg-5.jpg',
+        'content' => 'Full article content about handmade home decoration...',
+    ],
+    [
+        'title' => 'Color Trends in Artistic Decorations 2025',
+        'author' => 'Admin',
+        'date' => '2025-02-25',
+        'excerpt' => 'A look at the most popular color palettes being used by modern decor artists this year.',
+        'image' => 'news-bg-6.jpg',
+        'content' => 'Full article content about decoration color trends 2025...',
+    ],
+];
 
-    $tags = ['Glass', 'Ornament', 'Mosaic', 'Handcraft', 'Decoration', 'Culture', 'Art', 'Design', 'Ceramic', 'Vintage', 'Modern', 'Traditional', 'Contemporary', 'Craftsmanship'];
-    $stmt = $conn->prepare("INSERT INTO news_tags (name) VALUES (:name)");
+$stmt = $pdo->prepare("INSERT INTO news (title, author, date, excerpt, image, content, created_at) VALUES (?, ?, ?, ?, ?, ?, NOW())");
 
-    foreach ($tags as $tag) {
-        $stmt->execute(['name' => $tag]);
-    }
-
-    echo "Tags inserted successfully.<br>";
-
-    $relations = [
-        ['news_id' => 1, 'tag_id' => 1], 
-        ['news_id' => 1, 'tag_id' => 5], 
-        ['news_id' => 2, 'tag_id' => 2], 
-        ['news_id' => 2, 'tag_id' => 4], 
-        ['news_id' => 3, 'tag_id' => 3], 
-    ];
-
-    $stmt = $conn->prepare("INSERT INTO news_tag_relation (news_id, tag_id) VALUES (:news_id, :tag_id)");
-
-    foreach ($relations as $rel) {
-        $stmt->execute([
-            'news_id' => $rel['news_id'],
-            'tag_id' => $rel['tag_id']
-        ]);
-    }
-
-    echo "Tag relations inserted successfully.<br>";
-
-} catch (PDOException $e) {
-    echo "Error: " . $e->getMessage();
+foreach ($newsItems as $news) {
+    $stmt->execute([$news['title'], $news['author'], $news['date'], $news['excerpt'], $news['image'], $news['content']]);
 }
 
-$conn = null;
-?>
+echo "News inserted successfully.";
