@@ -11,17 +11,30 @@ require_once('../includes/db.php');
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
-            background-color: #fffaf3;
-            font-family: Arial, sans-serif;
-            padding: 30px;
+            background-color: #f1f2f6;
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .main-content {
+            margin-left: 230px;
+            padding: 40px;
         }
 
         .container {
-            max-width: 600px;
+            max-width: 700px;
             background: #fff;
-            border-radius: 15px;
+            border-radius: 12px;
             padding: 30px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin: auto;
+        }
+
+        h2 {
+            text-align: center;
+            color: #2d3436;
+            margin-bottom: 30px;
         }
 
         .btn-orange {
@@ -32,12 +45,38 @@ require_once('../includes/db.php');
         .btn-orange:hover {
             background-color: #e67600;
         }
+
+        label {
+            font-weight: bold;
+            color: #2d3436;
+        }
+
+        .form-control,
+        .form-select {
+            font-size: 15px;
+        }
+
+        .alert-success {
+            background-color: #dff9fb;
+            color: #27ae60;
+            border: 1px solid #7bed9f;
+        }
+
+        .alert-danger {
+            background-color: #ffecec;
+            color: #d63031;
+            border: 1px solid #fab1a0;
+        }
     </style>
 </head>
 
 <body>
+
+<?php include('sidebar.php'); ?>
+
+<div class="main-content">
     <div class="container">
-        <h2 class="mb-4 text-center">Add New Product</h2>
+        <h2>Add New Product</h2>
 
         <?php
         if (isset($_POST['add'])) {
@@ -59,7 +98,6 @@ require_once('../includes/db.php');
             try {
                 $stmt = $pdo->prepare("INSERT INTO products (name, description, price, image, category_id, created_at) VALUES (?, ?, ?, ?, ?, NOW())");
                 $stmt->execute([$name, $desc, $price, $image, $category_id]);
-
 
                 echo '<div class="alert alert-success text-center">✅ Product added successfully!</div>';
             } catch (PDOException $e) {
@@ -95,17 +133,17 @@ require_once('../includes/db.php');
                 </select>
             </div>
 
-
             <div class="mb-3">
                 <label class="form-label">Product Image</label>
                 <input type="file" name="image" class="form-control">
             </div>
 
             <div class="text-center">
-                <button type="submit" name="add" class="btn btn-orange">Add Product</button>
+                <button type="submit" name="add" class="btn btn-orange">➕ Add Product</button>
             </div>
         </form>
     </div>
-</body>
+</div>
 
+</body>
 </html>

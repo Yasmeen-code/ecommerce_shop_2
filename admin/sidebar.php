@@ -49,10 +49,13 @@
 <div class="sidebar">
     <h2>🛠️ Control Panel</h2>
     <ul>
-        <li><a href="control-panel.php">🏠 Dashboard</a></li>
+        <li><a href="dashboard.php">🏠 Dashboard</a></li>
         <li><a href="add_product.php">➕ Add Product</a></li>
-        <li><a href="viewproducts.php">📦 View Products</a></li>
+        <li><a href="view_products.php">📦 View Products</a></li>
+        <li><a href="view_orders.php">📋 View Orders</a></li>
+        <li><a href="view_customers.php">👥 View Customers</a></li>
         <li><a href="view_news.php">🗞️ View News</a></li>
+        <li><a href="add_news.php">➕ Add News</a></li>
         <li><a href="view_comments.php">💬 View Comments</a></li>
         <li><a href="view_messages.php">📨 Contact Messages</a></li>
         <li><a href="../index.php">🌐 Back to Site</a></li>

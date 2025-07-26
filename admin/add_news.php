@@ -11,7 +11,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $content = $_POST['content'];
     $created_at = date('Y-m-d H:i:s');
 
-    // handle image
     $imageName = '';
     if (!empty($_FILES['image']['name'])) {
         $imageName = time() . '_' . $_FILES['image']['name'];
@@ -31,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         ':created_at' => $created_at
     ]);
 
-    $message = 'News has been added successfully!';
+    $message = '✅ News has been added successfully!';
 }
 ?>
 
@@ -42,32 +41,37 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <title>Add News</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f6f9;
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f1f2f6;
             margin: 0;
             padding: 0;
         }
 
+        .main-content {
+            margin-left: 230px;
+            padding: 40px;
+        }
+
         .container {
-            max-width: 700px;
-            margin: 50px auto;
-            background: white;
-            border-radius: 12px;
+            max-width: 800px;
+            background-color: white;
             padding: 30px;
-            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin: auto;
         }
 
         h2 {
             text-align: center;
-            color: #333;
-            margin-bottom: 25px;
+            color: #2d3436;
+            margin-bottom: 30px;
         }
 
         label {
             display: block;
             margin-top: 15px;
             font-weight: bold;
-            color: #444;
+            color: #2d3436;
         }
 
         input[type="text"],
@@ -80,42 +84,54 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             border: 1px solid #ccc;
             border-radius: 6px;
             box-sizing: border-box;
+            font-size: 15px;
         }
 
         textarea {
-            height: 100px;
+            height: 120px;
             resize: vertical;
         }
 
         button {
-            margin-top: 20px;
-            padding: 12px 20px;
-            background-color: #007bff;
+            margin-top: 25px;
+            padding: 12px;
+            background-color: #0984e3;
             color: white;
             border: none;
             border-radius: 6px;
-            cursor: pointer;
             font-size: 16px;
             width: 100%;
+            cursor: pointer;
+            transition: 0.3s;
         }
 
         button:hover {
-            background-color: #0056b3;
+            background-color: #0652dd;
         }
 
         .success {
-            color: green;
+            background-color: #dff9fb;
+            color: #27ae60;
             text-align: center;
+            padding: 10px;
+            border-radius: 6px;
             margin-bottom: 15px;
+            border: 1px solid #7bed9f;
         }
     </style>
 </head>
 <body>
+
+<?php include('sidebar.php'); ?>
+
+<div class="main-content">
     <div class="container">
-        <h2>Add News</h2>
+        <h2>📝 Add News</h2>
+
         <?php if ($message): ?>
             <p class="success"><?php echo $message; ?></p>
         <?php endif; ?>
+
         <form action="" method="POST" enctype="multipart/form-data">
             <label>Title:</label>
             <input type="text" name="title" required>
@@ -135,8 +151,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <label>Content:</label>
             <textarea name="content" required></textarea>
 
-            <button type="submit">Add News</button>
+            <button type="submit">➕ Add News</button>
         </form>
     </div>
+</div>
+
 </body>
 </html>

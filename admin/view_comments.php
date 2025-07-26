@@ -15,53 +15,54 @@ $stmt = $pdo->query("SELECT comments.*, users.name AS user_name, news.title AS n
     <title>View Comments</title>
     <style>
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f1f2f6;
             margin: 0;
-            padding: 20px;
-            background-color: #f4f7f9;
+        }
+
+        .main-content {
+            margin-left: 230px;
+            padding: 40px;
         }
 
         .container {
-            max-width: 1000px;
+            max-width: 1100px;
             margin: auto;
-            background-color: #fff;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
         }
 
         h2 {
+            color: #2d3436;
             text-align: center;
-            color: #333;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            background-color: #fafafa;
+            background-color: #fff;
         }
 
         th, td {
             padding: 12px 15px;
-            text-align: left;
             border-bottom: 1px solid #ddd;
+            text-align: center;
         }
 
         th {
-            background-color: #2d89ef;
-            color: white;
+            background-color: #2d3436;
+            color: #fff;
+            text-transform: uppercase;
         }
 
         tr:hover {
-            background-color: #f1f1f1;
+            background-color: #f9f9f9;
         }
 
-        td {
-            color: #333;
-        }
-
-        @media (max-width: 768px) {
+        @media screen and (max-width: 768px) {
             table, thead, tbody, th, td, tr {
                 display: block;
             }
@@ -70,25 +71,37 @@ $stmt = $pdo->query("SELECT comments.*, users.name AS user_name, news.title AS n
                 display: none;
             }
 
+            tr {
+                margin-bottom: 15px;
+                background: #fff;
+                border-radius: 8px;
+                padding: 10px;
+                box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            }
+
             td {
-                position: relative;
-                padding-left: 50%;
                 text-align: right;
+                padding-left: 50%;
+                position: relative;
             }
 
             td::before {
                 content: attr(data-label);
                 position: absolute;
-                left: 10px;
-                top: 12px;
+                left: 15px;
+                width: 45%;
+                padding-left: 15px;
                 font-weight: bold;
                 text-align: left;
-                color: #2d89ef;
             }
         }
     </style>
 </head>
 <body>
+
+<?php include('sidebar.php'); ?>
+
+<div class="main-content">
     <div class="container">
         <h2>💬 All Comments</h2>
         <table>
@@ -114,5 +127,7 @@ $stmt = $pdo->query("SELECT comments.*, users.name AS user_name, news.title AS n
             </tbody>
         </table>
     </div>
+</div>
+
 </body>
 </html>
