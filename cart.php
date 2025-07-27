@@ -32,6 +32,19 @@ foreach ($cartItems as $item) {
 }
 $shipping = 45;
 $total = $subtotal + $shipping;
+
+if (isset($_POST['id'])) {
+    $id = $_POST['id'];
+
+    $stmt = $pdo->prepare("DELETE FROM cart_items WHERE id = ?");
+    if ($stmt->execute([$id])) {
+        echo json_encode(['success' => true]);
+    } else {
+        echo json_encode(['success' => false, 'error' => 'Failed to delete from DB']);
+    }
+} else {
+    echo json_encode(['success' => false, 'error' => 'No ID sent']);
+}
 ?>
 
 <!-- breadcrumb-section -->
@@ -69,11 +82,13 @@ $total = $subtotal + $shipping;
             <tbody>
               <?php foreach ($cartItems as $item): ?>
                 <tr class="table-body-row">
-                  <td class="product-remove">
-                    <a href="remove_from_cart.php?id=<?= $item['cart_item_id'] ?>">
-                      <i class="far fa-window-close"></i>
-                    </a>
-                  </td>
+                <td class="product-remove">
+  <a href="#" class="remove-from-cart" data-id="<?= $item['cart_item_id'] ?>">
+    <i class="far fa-window-close"></i>
+  </a>
+</td>
+
+
                   <td class="product-image">
                     <img src="assets/img/products/<?= htmlspecialchars($item['image']) ?>" alt="">
                   </td>
@@ -136,6 +151,35 @@ $total = $subtotal + $shipping;
     </div>
   </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  document.querySelectorAll('.remove-from-cart').forEach(button => {
+    button.addEventListener('click', function(e) {
+      e.preventDefault();
+
+      const row = this.closest('tr');
+      const id = this.dataset.id;
+
+      fetch('remove_from_cart.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: `id=${encodeURIComponent(id)}`
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          row.remove(); 
+        } else {
+          alert('Error occurred while removing item: ' + data.error);
+        }
+      })
+      .catch(err => {
+        alert('AJAX error: ' + err);
+      });
+    });
+  });
+</script>
+
 <!-- end cart -->
 
 <?php include 'includes/footer.php'; ?>
