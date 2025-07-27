@@ -23,9 +23,22 @@ $stmt2 = $pdo->prepare("
     WHERE c.news_id = ?
     ORDER BY c.created_at DESC
 ");
-$stmt2->execute([$id]); 
+$stmt2->execute([$id]);
 $comments = $stmt2->fetchAll();
 
+$name = '';
+$email = '';
+
+if (isset($_SESSION['user_id'])) {
+    $stmt = $pdo->prepare("SELECT name, email FROM users WHERE id = ?");
+    $stmt->execute([$_SESSION['user_id']]);
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($user) {
+        $name = htmlspecialchars($user['name']);
+        $email = htmlspecialchars($user['email']);
+    }
+}
 ?>
 <!-- breadcrumb-section -->
 <div class="breadcrumb-section breadcrumb-bg">
@@ -87,16 +100,18 @@ $comments = $stmt2->fetchAll();
           <div class="comment-template">
             <form action="add_comment.php" method="POST">
               <input type="hidden" name="news_id" value="<?php echo $news['id']; ?>">
-              <p>
-                <input type="text" name="name" placeholder="Your Name" required />
-                <input type="email" name="email" placeholder="Your Email" required />
-              </p>
+              <input type="hidden" name="name" value="<?php echo $name; ?>">
+              <input type="hidden" name="email" value="<?php echo $email; ?>">
+
+            
+
               <p>
                 <textarea name="comment" cols="30" rows="10" placeholder="Your Message" required></textarea>
               </p>
               <p><input type="submit" value="Submit" /></p>
             </form>
           </div>
+
         </div>
       </div>
       <div class="col-lg-4">
