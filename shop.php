@@ -90,7 +90,7 @@ $categories = $catStmt->fetchAll(PDO::FETCH_ASSOC);
 
             <form method="POST" action="add_to_cart.php">
               <input type="hidden" name="product_id" value="<?= $product['id'] ?>">
-              <button type="submit" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</button>
+              <button type="submit" class="cart-btn1" style="border-radius: 20px; border: none;"><i class="fas fa-shopping-cart"></i> Add to Cart</button>
             </form>
           </div>
         </div>
