@@ -1,10 +1,8 @@
 <?php
-session_start();
 include 'includes/header.php';
 require_once 'includes/db.php';
 
 if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
-    // لو مفيش ID أو مش رقم، رجعه للصفحة الرئيسية أو اعرض رسالة خطأ
     header("Location: shop.php");
     exit;
 }

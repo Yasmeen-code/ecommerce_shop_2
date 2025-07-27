@@ -1,11 +1,10 @@
 <?php
-session_start();
 include 'includes/db.php';
 include 'includes/header.php';
 
 if (!isset($_SESSION['user_id'])) {
-    header('Location: login.php');
-    exit;
+  header('Location: login.php');
+  exit;
 }
 
 $user_id = $_SESSION['user_id'];
@@ -28,23 +27,21 @@ $cartItems = $stmt->fetchAll();
 
 $subtotal = 0;
 foreach ($cartItems as $item) {
-    $subtotal += $item['price'] * $item['quantity'];
+  $subtotal += $item['price'] * $item['quantity'];
 }
 $shipping = 45;
 $total = $subtotal + $shipping;
 
 if (isset($_POST['id'])) {
-    $id = $_POST['id'];
+  $id = $_POST['id'];
 
-    $stmt = $pdo->prepare("DELETE FROM cart_items WHERE id = ?");
-    if ($stmt->execute([$id])) {
-        echo json_encode(['success' => true]);
-    } else {
-        echo json_encode(['success' => false, 'error' => 'Failed to delete from DB']);
-    }
-} else {
-    echo json_encode(['success' => false, 'error' => 'No ID sent']);
-}
+  $stmt = $pdo->prepare("DELETE FROM cart_items WHERE id = ?");
+  if ($stmt->execute([$id])) {
+    echo json_encode(['success' => true]);
+  } else {
+    echo json_encode(['' => false, 'error' => 'Failed to delete from DB']);
+  }
+} 
 ?>
 
 <!-- breadcrumb-section -->
@@ -82,11 +79,11 @@ if (isset($_POST['id'])) {
             <tbody>
               <?php foreach ($cartItems as $item): ?>
                 <tr class="table-body-row">
-                <td class="product-remove">
-  <a href="#" class="remove-from-cart" data-id="<?= $item['cart_item_id'] ?>">
-    <i class="far fa-window-close"></i>
-  </a>
-</td>
+                  <td class="product-remove">
+                    <a href="#" class="remove-from-cart" data-id="<?= $item['cart_item_id'] ?>">
+                      <i class="far fa-window-close"></i>
+                    </a>
+                  </td>
 
 
                   <td class="product-image">
@@ -101,7 +98,9 @@ if (isset($_POST['id'])) {
                 </tr>
               <?php endforeach; ?>
               <?php if (empty($cartItems)): ?>
-                <tr><td colspan="6">Your cart is currently empty.</td></tr>
+                <tr>
+                  <td colspan="6">Your cart is currently empty.</td>
+                </tr>
               <?php endif; ?>
             </tbody>
           </table>
@@ -161,21 +160,23 @@ if (isset($_POST['id'])) {
       const id = this.dataset.id;
 
       fetch('remove_from_cart.php', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: `id=${encodeURIComponent(id)}`
-      })
-      .then(res => res.json())
-      .then(data => {
-        if (data.success) {
-          row.remove(); 
-        } else {
-          alert('Error occurred while removing item: ' + data.error);
-        }
-      })
-      .catch(err => {
-        alert('AJAX error: ' + err);
-      });
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+          },
+          body: `id=${encodeURIComponent(id)}`
+        })
+        .then(res => res.json())
+        .then(data => {
+          if (data.success) {
+            row.remove();
+          } else {
+            alert('Error occurred while removing item: ' + data.error);
+          }
+        })
+        .catch(err => {
+          alert('AJAX error: ' + err);
+        });
     });
   });
 </script>

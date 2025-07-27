@@ -1,5 +1,4 @@
 <?php
-session_start();
 include 'includes/db.php'; ?>
 <?php include 'includes/header.php'; ?>
 <!-- home page slider -->
@@ -135,12 +134,12 @@ include 'includes/db.php'; ?>
 						<h3><?= htmlspecialchars($product['name']) ?></h3>
 						<p class="product-price"><span>Per Piece</span> <?= number_format($product['price'], 2) ?>$</p>
 
-						<form method="POST" action="add_to_cart.php" style="display:inline;">
-							<input type="hidden" name="product_id" value="<?= $product['id'] ?>">
-							<button type="submit" name="add_to_cart" class="cart-btn1" style="border: none; cursor: pointer; border-radius: 20px; ">
-								<i class="fas fa-shopping-cart"></i> Add to Cart
-							</button>
-						</form>
+					<form class="add-to-cart-form" data-product-id="<?= $product['id'] ?>" style="display:inline;">
+	<button type="submit" class="cart-btn1" style="border: none; cursor: pointer; border-radius: 20px;">
+		<i class="fas fa-shopping-cart"></i> Add to Cart
+	</button>
+</form>
+
 					</div>
 				</div>
 			<?php
@@ -197,7 +196,11 @@ LIMIT 1")->fetch(PDO::FETCH_ASSOC);
 							</div>
 						</div>
 					</div>
-					<a href="cart.php?add=<?= $deal['product_id'] ?>" class="cart-btn1 mt-3" style="border-radius: 20px;"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+					<button class="cart-btn1 mt-3 add-to-cart" data-product-id="<?= $deal['product_id'] ?>" style="border-radius: 20px;">
+  <i class="fas fa-shopping-cart"></i> Add to Cart
+</button>
+
+
 				</div>
 			</div>
 		</div>
@@ -326,6 +329,86 @@ $deal = $stmt->fetch(PDO::FETCH_ASSOC);
 
 	</div>
 </div>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const cartButtons = document.querySelectorAll('.add-to-cart');
+
+  cartButtons.forEach(btn => {
+    btn.addEventListener('click', function () {
+      const productId = this.getAttribute('data-product-id');
+
+      fetch('add_to_cart.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: `product_id=${productId}&quantity=1`
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          updateCartCount();
+        } else {
+          alert(data.message);
+        }
+      })
+      .catch(error => console.error('Error:', error));
+    });
+  });
+
+  function updateCartCount() {
+    fetch('cart_count.php') 
+      .then(response => response.json())
+      .then(data => {
+        const countElement = document.querySelector('#cart-count');
+        if (countElement) {
+          countElement.textContent = data.count;
+        }
+      });
+  }
+});
+</script>
+<script>
+document.querySelectorAll('.add-to-cart-form').forEach(form => {
+	form.addEventListener('submit', function (e) {
+		e.preventDefault(); // منع الإرسال التقليدي
+
+		const productId = this.getAttribute('data-product-id');
+
+		fetch('add_to_cart.php', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded'
+			},
+			body: `product_id=${productId}&quantity=1`
+		})
+		.then(response => response.json())
+		.then(data => {
+			if (data.success) {
+				// ✅ تم الإضافة بنجاح - حدث رقم السلة
+				updateCartCount();
+			} else {
+				alert(data.message || "حدث خطأ، حاول مرة أخرى.");
+			}
+		})
+		.catch(error => {
+			console.error('Error:', error);
+		});
+	});
+});
+
+function updateCartCount() {
+	fetch('cart_count.php')  // هذا الملف يرجع عدد المنتجات في السلة
+		.then(response => response.json())
+		.then(data => {
+			if (data.success) {
+				document.getElementById('cart-count').textContent = data.count;
+			}
+		});
+}
+</script>
+
+
 <!-- end latest news -->
 
 <?php include 'includes/footer.php'; ?>

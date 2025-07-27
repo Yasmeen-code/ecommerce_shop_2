@@ -1,5 +1,4 @@
 <?php
-session_start();
 require_once '../includes/db.php';
 
 $stmt = $pdo->prepare("SELECT * FROM news ORDER BY created_at DESC");

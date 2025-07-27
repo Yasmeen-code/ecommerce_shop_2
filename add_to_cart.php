@@ -2,16 +2,19 @@
 session_start();
 require_once 'includes/db.php';
 
+header('Content-Type: application/json'); 
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['product_id'])) {
     $product_id = intval($_POST['product_id']);
     $quantity = isset($_POST['quantity']) ? intval($_POST['quantity']) : 1;
 
     if ($product_id <= 0 || $quantity <= 0) {
-        die("Invalid product_id or quantity.");
+        echo json_encode(['success' => false, 'message' => 'Invalid product_id or quantity.']);
+        exit;
     }
 
     if (!isset($_SESSION['user_id'])) {
-        header('Location: login.php');
+        echo json_encode(['success' => false, 'message' => 'You must be logged in.']);
         exit;
     }
 
@@ -29,8 +32,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['product_id'])) {
         $insertStmt->execute([$user_id, $product_id, $quantity]);
     }
 
-    header('Location: cart.php');
+    echo json_encode(['success' => true, 'message' => 'Item added to cart.']);
     exit;
 } else {
-    die("Invalid Request: Missing product_id.");
+    echo json_encode(['success' => false, 'message' => 'Invalid Request: Missing product_id.']);
+    exit;
 }
