@@ -79,7 +79,6 @@ if (isset($_SESSION['user_id'])) {
 								<li><a href="about.php">About</a></li>
 								<li><a href="#">Pages</a>
 									<ul class="sub-menu">
-										<li><a href="404.php">404 page</a></li>
 										<li><a href="about.php">About</a></li>
 										<li><a href="cart.php">Cart</a></li>
 										<li><a href="checkout.php">Check Out</a></li>
