@@ -1,5 +1,14 @@
 <?php
 include 'includes/db.php';
+
+// Get cart count for display in header
+$cartCount = 0;
+if (isset($_SESSION['user_id'])) {
+    $stmt = $pdo->prepare("SELECT SUM(quantity) AS total FROM cart_items WHERE user_id = ?");
+    $stmt->execute([$_SESSION['user_id']]);
+    $row = $stmt->fetch();
+    $cartCount = $row['total'] ?? 0;
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">

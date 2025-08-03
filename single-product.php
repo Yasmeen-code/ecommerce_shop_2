@@ -51,7 +51,7 @@ if (!$product) {
           <p class="single-product-pricing"><span>Per Piece</span> $<?= number_format($product['price'], 2) ?></p>
           <p><?= nl2br(htmlspecialchars($product['description'])) ?></p>
           <div class="single-product-form">
-            <form action="add_to_cart.php" method="POST">
+            <form>
               <input type="hidden" name="product_id" value="<?= $product['id'] ?>">
               <input type="number" name="quantity" placeholder="1" min="1" value="1" required />
               <button type="submit" class="cart-btn1" style="border-radius: 20px; border: none;">Add to Cart</button>
@@ -96,7 +96,10 @@ if (!$product) {
             </div>
             <h3><?= htmlspecialchars($related['name']) ?></h3>
             <p class="product-price"><span>Per Piece</span> $<?= number_format($related['price'], 2) ?></p>
-            <a href="single-product.php?id=<?= $related['id'] ?>" class="cart-btn1" style="border-radius: 20px;"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+            <form style="display:inline;">
+              <input type="hidden" name="product_id" value="<?= $related['id'] ?>">
+              <button type="submit" class="cart-btn1" style="border-radius: 20px; border: none;"><i class="fas fa-shopping-cart"></i> Add to Cart</button>
+            </form>
           </div>
         </div>
       <?php } ?>

@@ -3,6 +3,40 @@
 
     $(document).ready(function($){
         
+        // Handle Add to Cart button clicks
+        $(document).on('click', 'button[type="submit"].cart-btn1, button.cart-btn1', function(e) {
+            e.preventDefault();
+            
+            var form = $(this).closest('form');
+            var formData = form.serialize();
+            
+            $.ajax({
+                url: 'add_to_cart.php',
+                type: 'POST',
+                data: formData,
+                dataType: 'json',
+                success: function(response) {
+                    if (response.success) {
+                        // Update cart count
+                        $.ajax({
+                            url: 'cart_count.php',
+                            type: 'GET',
+                            dataType: 'json',
+                            success: function(countResponse) {
+                                $('#cart-count').text(countResponse.count);
+                            }
+                        });
+
+                    } else {
+                        alert('Error: ' + response.message);
+                    }
+                },
+                error: function() {
+                    alert('An error occurred while adding the item to cart.');
+                }
+            });
+        });
+        
         // testimonial sliders
         $(".testimonial-sliders").owlCarousel({
             items: 1,
