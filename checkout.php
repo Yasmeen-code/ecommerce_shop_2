@@ -60,11 +60,11 @@ include 'includes/header.php';
                 <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
                   <div class="card-body">
                     <div class="billing-address-form">
-                      <p><input type="text" name="name" placeholder="Full Name" required /></p>
-                      <p><input type="email" name="email" placeholder="Email Address" required /></p>
-                      <p><input type="text" name="address" placeholder="Shipping Address" required /></p>
-                      <p><input type="tel" name="phone" placeholder="Phone Number" required /></p>
-                      <p><textarea name="notes" cols="30" rows="10" placeholder="Additional Notes (e.g., delivery preferences)"></textarea></p>
+                      <p><input type="text" name="name" placeholder="Full Name" required style="width:100%; padding:15px; border:1px solid #ddd; border-radius:3px;" /></p>
+                      <p><input type="email" name="email" placeholder="Email Address" required style="width:100%; padding:15px; border:1px solid #ddd; border-radius:3px;" /></p>
+                      <p><input type="text" name="address" placeholder="Shipping Address" required style="width:100%; padding:15px; border:1px solid #ddd; border-radius:3px;" /></p>
+                      <p><input type="tel" name="phone" placeholder="Phone Number" required style="width:100%; padding:15px; border:1px solid #ddd; border-radius:3px;" /></p>
+                      <p><textarea name="notes" cols="30" rows="10" placeholder="Additional Notes (e.g., delivery preferences)" style="width:100%; padding:15px; border:1px solid #ddd; border-radius:3px; height:120px; resize:none;"></textarea></p>
                     </div>
                   </div>
                 </div>
@@ -150,7 +150,7 @@ include 'includes/header.php';
           <input type="hidden" name="total_price" value="<?= $total ?>">
           <input type="hidden" name="shipping" value="<?= $shipping ?>">
 
-          <button type="submit" class="boxed-btn">Place Order</button>
+          <button type="submit" class="boxed-btn" style="font-family: 'Poppins', sans-serif; display: inline-block; background-color: #f28123; color: #fff; padding: 10px 20px; border-radius: 50px; border: none; cursor: pointer; font-size: inherit; margin-top: 25px;">Place Order</button>
         </div>
       </form>
       </div>

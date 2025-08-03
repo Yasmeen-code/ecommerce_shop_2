@@ -106,6 +106,11 @@ if (isset($_SESSION['user_id'])) {
 								</li>
 								<li>
 									<div class="header-icons">
+										<?php if (isset($_SESSION['user_id'])): ?>
+											<a href="profile.php" class="profile-icon">
+												<i class="fas fa-user"></i>
+											</a>
+										<?php endif; ?>
 										<a href="cart.php" class="cart-icon">
 											<i class="fas fa-shopping-cart"></i>
 											<span id="cart-count"><?= $cartCount ?? 0 ?></span>

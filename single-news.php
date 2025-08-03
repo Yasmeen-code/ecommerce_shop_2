@@ -102,9 +102,6 @@ if (isset($_SESSION['user_id'])) {
               <input type="hidden" name="news_id" value="<?php echo $news['id']; ?>">
               <input type="hidden" name="name" value="<?php echo $name; ?>">
               <input type="hidden" name="email" value="<?php echo $email; ?>">
-
-            
-
               <p>
                 <textarea name="comment" cols="30" rows="10" placeholder="Your Message" required></textarea>
               </p>
