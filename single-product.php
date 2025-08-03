@@ -1,5 +1,4 @@
 <?php
-include 'includes/header.php';
 require_once 'includes/db.php';
 
 if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
@@ -7,9 +6,10 @@ if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
     exit;
 }
 
+include 'includes/header.php';
+
 $product_id = (int) $_GET['id'];
 
-// جلب بيانات المنتج
 $stmt = $pdo->prepare("SELECT * FROM products WHERE id = ?");
 $stmt->execute([$product_id]);
 $product = $stmt->fetch(PDO::FETCH_ASSOC);

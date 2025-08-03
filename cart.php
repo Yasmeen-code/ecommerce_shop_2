@@ -1,6 +1,6 @@
 <?php
+session_start();
 include 'includes/db.php';
-include 'includes/header.php';
 
 if (!isset($_SESSION['user_id'])) {
   header('Location: login.php');
@@ -32,6 +32,7 @@ foreach ($cartItems as $item) {
 $shipping = 45;
 $total = $subtotal + $shipping;
 
+// Handle AJAX requests for removing items
 if (isset($_POST['id'])) {
   $id = $_POST['id'];
 
@@ -39,9 +40,13 @@ if (isset($_POST['id'])) {
   if ($stmt->execute([$id])) {
     echo json_encode(['success' => true]);
   } else {
-    echo json_encode(['' => false, 'error' => 'Failed to delete from DB']);
+    echo json_encode(['success' => false, 'error' => 'Failed to delete from DB']);
   }
+  exit; // Exit for AJAX requests
 } 
+
+// Include header for normal page load
+include 'includes/header.php';
 ?>
 
 <!-- breadcrumb-section -->

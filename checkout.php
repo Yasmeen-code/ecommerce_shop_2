@@ -1,8 +1,8 @@
 <?php
+session_start();
 include 'includes/db.php';
-include 'includes/header.php'; 
 
-
+// Check if user is not logged in, redirect to login
 if (!isset($_SESSION['user_id'])) {
   header('Location: login.php');
   exit;
@@ -20,6 +20,8 @@ foreach ($cartItems as $item) {
 }
 $shipping = 50;
 $total = $subtotal + $shipping;
+
+include 'includes/header.php';
 ?>
 
 <!-- breadcrumb-section -->

@@ -1,4 +1,5 @@
 <?php
+session_start();
 include 'includes/db.php'; ?>
 <?php include 'includes/header.php'; ?>
 <!-- home page slider -->

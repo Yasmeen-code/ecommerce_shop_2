@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<?php include 'includes/db.php'; ?>
+<?php session_start();
+include 'includes/db.php'; ?>
 <?php include 'includes/header.php'; ?>
 
 <!-- breadcrumb section -->

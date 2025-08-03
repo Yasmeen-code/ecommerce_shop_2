@@ -1,4 +1,5 @@
 <?php
+session_start();
 include 'includes/db.php';
 include 'includes/header.php';
 $categories = $pdo->query("SELECT * FROM categories")->fetchAll(PDO::FETCH_ASSOC);
