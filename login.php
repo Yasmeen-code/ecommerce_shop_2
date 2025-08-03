@@ -24,112 +24,62 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $error = "Invalid email or password.";
     }
 }
+
+// Only include the header after processing POST request
+include 'includes/header.php';
 ?>
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <title>Login</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        body {
-            font-family: 'Segoe UI', sans-serif;
-            background-color: #f4f4f4;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-
-        .login-container {
-            background: #fff;
-            padding: 30px 40px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 360px;
-        }
-
-        h2 {
-            text-align: center;
-            margin-bottom: 20px;
-            color: #333;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-            position: relative;
-        }
-
-        .form-group input {
-            width: 100%;
-            padding: 10px 10px 10px 12px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-        }
-
-        button {
-            width: 100%;
-            background: #5cb85c;
-            color: white;
-            border: none;
-            padding: 10px;
-            border-radius: 5px;
-            font-size: 16px;
-            margin-top: 10px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background: #4cae4c;
-        }
-
-        .error {
-            color: #a94442;
-            background: #f2dede;
-            padding: 10px;
-            margin-bottom: 15px;
-            border-radius: 5px;
-            text-align: center;
-        }
-
-        .register-link {
-            text-align: center;
-            margin-top: 15px;
-            font-size: 14px;
-        }
-
-        .register-link a {
-            color: #007bff;
-            text-decoration: none;
-        }
-
-        .register-link a:hover {
-            text-decoration: underline;
-        }
-    </style>
-</head>
-
-<body>
-
-    <div class="login-container">
-        <form method="post">
-            <h2><i class="fa-solid fa-right-to-bracket"></i> Login</h2>
-            <?php if (!empty($error)): ?>
-                <div class="error"><?= htmlspecialchars($error) ?></div>
-            <?php endif; ?>
-            <div class="form-group">
-                <input type="email" name="email" placeholder="Email" required>
+<!-- breadcrumb-section -->
+<div class="breadcrumb-section breadcrumb-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2 text-center">
+                <div class="breadcrumb-text">
+                    <p>Sign in to your account</p>
+                    <h1>Login</h1>
+                </div>
             </div>
-            <div class="form-group">
-                <input type="password" name="password" placeholder="Password" required>
-            </div>
-            <button type="submit"><i class="fa-solid fa-sign-in-alt"></i> Login</button>
-            <div class="register-link">
-                Don't have an account? <a href="register.php">Register here</a>
-            </div>
-        </form>
+        </div>
     </div>
-</body>
+</div>
+<!-- end breadcrumb section -->
 
-</html>
+<!-- login form -->
+<div class="mt-150 mb-150">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 offset-lg-3">
+                <div class="login-form-wrap">
+                    <div class="form-title text-center mb-30">
+                        <i class="fas fa-user-lock" style="font-size: 60px; color: #f28123; margin-bottom: 20px;"></i>
+                        <h2>Welcome Back</h2>
+                        <p>Sign in to access your account and continue shopping our beautiful collection.</p>
+                    </div>
+                    <div class="login-form">
+                        <form method="post">
+                            <?php if (!empty($error)): ?>
+                                <p style="color: #a94442; background: #f2dede; padding: 10px; border-radius: 5px; text-align: center; margin-bottom: 20px;">
+                                    <?= htmlspecialchars($error) ?>
+                                </p>
+                            <?php endif; ?>
+                            <p>
+                                <input type="email" placeholder="Your Email" name="email" required style="width: 100%; padding: 15px; border: 1px solid #ddd; border-radius: 3px;" />
+                            </p>
+                            <p>
+                                <input type="password" placeholder="Password" name="password" required style="width: 100%; padding: 15px; border: 1px solid #ddd; border-radius: 3px;" />
+                            </p>
+                            <p>
+                                <input type="submit" value="Login" class="boxed-btn" style="width: 100%; background-color: #f28123; color: #051922; font-weight: 700; text-transform: uppercase; font-size: 15px; border: none; padding: 15px; border-radius: 3px; cursor: pointer;">
+                            </p>
+                            <p class="text-center">
+                                Don't have an account? <a href="register.php">Register here</a>
+                            </p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end login form -->
+
+<?php include 'includes/footer.php'; ?>

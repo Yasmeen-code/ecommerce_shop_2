@@ -13,102 +13,60 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     header("Location: login.php");
     exit();
 }
+
+// Only include the header after processing POST request
+include 'includes/header.php';
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Register</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        body {
-            font-family: 'Segoe UI', sans-serif;
-            background-color: #f4f4f4;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-        .register-container {
-            background: #fff;
-            padding: 30px 40px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 360px;
-        }
-        h2 {
-            text-align: center;
-            margin-bottom: 20px;
-            color: #333;
-        }
-        .form-group {
-            margin-bottom: 15px;
-            margin-left: -20px;
-            position: relative;
-        }
-        .form-group input {
-            width: 100%;
-            padding: 10px 10px 10px 12px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-        }
-        button {
-            width: 100%;
-            background: #5cb85c;
-            color: white;
-            border: none;
-            padding: 10px;
-            border-radius: 5px;
-            font-size: 16px;
-            margin-top: 10px;
-            cursor: pointer;
-        }
-        button:hover {
-            background: #4cae4c;
-        }
-        .success {
-            color: #3c763d;
-            background: #dff0d8;
-            padding: 10px;
-            margin-bottom: 15px;
-            border-radius: 5px;
-            text-align: center;
-        }
-        .login-link {
-            text-align: center;
-            margin-top: 15px;
-            font-size: 14px;
-        }
-        .login-link a {
-            color: #007bff;
-            text-decoration: none;
-        }
-        .login-link a:hover {
-            text-decoration: underline;
-        }
-    </style>
-</head>
-<body>
-    <div class="register-container">
-        <form method="post">
-            <h2><i class="fa-solid fa-user-plus"></i> Register</h2>
-            <?php if (!empty($success)): ?>
-                <div class="success"><?= htmlspecialchars($success) ?></div>
-            <?php endif; ?>
-            <div class="form-group">
-                <input type="text" name="name" placeholder="Full Name" required>
+<!-- breadcrumb-section -->
+<div class="breadcrumb-section breadcrumb-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2 text-center">
+                <div class="breadcrumb-text">
+                    <p>Create a new account</p>
+                    <h1>Register</h1>
+                </div>
             </div>
-            <div class="form-group">
-                <input type="email" name="email" placeholder="Email Address" required>
-            </div>
-            <div class="form-group">
-                <input type="password" name="password" placeholder="Password" required>
-            </div>
-            <button type="submit"><i class="fa-solid fa-user-check"></i> Register</button>
-            <div class="login-link">
-                Already have an account? <a href="login.php">Login here</a>
-            </div>
-        </form>
+        </div>
     </div>
-</body>
-</html>
+</div>
+<!-- end breadcrumb section -->
+
+<!-- register form -->
+<div class="mt-150 mb-150">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 offset-lg-3">
+                <div class="register-form-wrap">
+                    <div class="form-title text-center mb-30">
+                        <i class="fas fa-user-plus" style="font-size: 60px; color: #f28123; margin-bottom: 20px;"></i>
+                        <h2>Create Account</h2>
+                        <p>Join our community and start shopping our beautiful collection of handmade crafts.</p>
+                    </div>
+                    <div class="register-form">
+                        <form method="post">
+                            <p>
+                                <input type="text" placeholder="Full Name" name="name" required style="width: 100%; padding: 15px; border: 1px solid #ddd; border-radius: 3px;" />
+                            </p>
+                            <p>
+                                <input type="email" placeholder="Your Email" name="email" required style="width: 100%; padding: 15px; border: 1px solid #ddd; border-radius: 3px;" />
+                            </p>
+                            <p>
+                                <input type="password" placeholder="Password" name="password" required style="width: 100%; padding: 15px; border: 1px solid #ddd; border-radius: 3px;" />
+                            </p>
+                            <p>
+                                <input type="submit" value="Register" class="boxed-btn" style="width: 100%; background-color: #f28123; color: #051922; font-weight: 700; text-transform: uppercase; font-size: 15px; border: none; padding: 15px; border-radius: 3px; cursor: pointer;">
+                            </p>
+                            <p class="text-center">
+                                Already have an account? <a href="login.php">Login here</a>
+                            </p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end register form -->
+
+<?php include 'includes/footer.php'; ?>
