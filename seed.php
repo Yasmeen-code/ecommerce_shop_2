@@ -1,5 +1,5 @@
 <?php
-require 'includes/db.php'; // أو عدلي حسب مكان الاتصال بقاعدة البيانات
+require 'includes/db.php'; 
 
 $newsItems = [
     [

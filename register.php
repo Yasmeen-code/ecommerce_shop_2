@@ -14,7 +14,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     exit();
 }
 
-// Only include the header after processing POST request
 include 'includes/header.php';
 ?>
 <!-- breadcrumb-section -->

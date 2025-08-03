@@ -2,7 +2,6 @@
 session_start();
 include 'includes/db.php';
 
-// Check if user is not logged in, redirect to login
 if (!isset($_SESSION['user_id'])) {
   header('Location: login.php');
   exit;
@@ -10,19 +9,16 @@ if (!isset($_SESSION['user_id'])) {
 
 $user_id = $_SESSION['user_id'];
 
-// Handle logout
 if (isset($_POST['logout'])) {
   session_destroy();
   header('Location: login.php');
   exit;
 }
 
-// Get user information
 $stmt = $pdo->prepare("SELECT * FROM users WHERE id = ?");
 $stmt->execute([$user_id]);
 $user = $stmt->fetch();
 
-// Get user's orders
 $stmt = $pdo->prepare("SELECT * FROM orders WHERE user_id = ? ORDER BY created_at DESC");
 $stmt->execute([$user_id]);
 $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);

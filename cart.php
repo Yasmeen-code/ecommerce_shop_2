@@ -32,7 +32,6 @@ foreach ($cartItems as $item) {
 $shipping = 45;
 $total = $subtotal + $shipping;
 
-// Handle AJAX requests for removing items
 if (isset($_POST['id'])) {
   $id = $_POST['id'];
 
@@ -42,10 +41,9 @@ if (isset($_POST['id'])) {
   } else {
     echo json_encode(['success' => false, 'error' => 'Failed to delete from DB']);
   }
-  exit; // Exit for AJAX requests
+  exit;
 } 
 
-// Include header for normal page load
 include 'includes/header.php';
 ?>
 
