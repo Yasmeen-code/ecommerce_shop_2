@@ -77,30 +77,12 @@ if (isset($_SESSION['user_id'])) {
 
 								</li>
 								<li><a href="about.php">About</a></li>
-								<li><a href="#">Pages</a>
-									<ul class="sub-menu">
-										<li><a href="about.php">About</a></li>
-										<li><a href="cart.php">Cart</a></li>
-										<li><a href="checkout.php">Check Out</a></li>
-										<li><a href="contact.php">Contact</a></li>
-										<li><a href="news.php">News</a></li>
-										<li><a href="shop.php">Shop</a></li>
-									</ul>
-								</li>
+
 								<li><a href="news.php">News</a>
-									<ul class="sub-menu">
-										<li><a href="news.php">News</a></li>
-										<li><a href="single-news.php">Single News</a></li>
-									</ul>
+								
 								</li>
 								<li><a href="contact.php">Contact</a></li>
 								<li><a href="shop.php">Shop</a>
-									<ul class="sub-menu">
-										<li><a href="shop.php">Shop</a></li>
-										<li><a href="checkout.php">Check Out</a></li>
-										<li><a href="single-product.php">Single Product</a></li>
-										<li><a href="cart.php">Cart</a></li>
-									</ul>
 								</li>
 								<li>
 									<div class="header-icons">
