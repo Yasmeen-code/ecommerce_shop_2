@@ -79,14 +79,10 @@ if (isset($_SESSION['user_id'])) {
 								<li><a href="about.php">About</a></li>
 
 								<li><a href="news.php">News</a>
-									<ul class="sub-menu">
-										<li><a href="news.php">News</a></li>
-										<li><a href="single-news.php">Single News</a></li>
-									</ul>
+								
 								</li>
 								<li><a href="contact.php">Contact</a></li>
 								<li><a href="shop.php">Shop</a>
-
 								</li>
 								<li>
 									<div class="header-icons">
