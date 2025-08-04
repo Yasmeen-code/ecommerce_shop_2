@@ -25,52 +25,7 @@ A modern, responsive e-commerce platform built with PHP, MySQL, and Bootstrap fo
 - **News/Blog Management** - Create and manage blog posts
 - **Contact Messages** - Manage customer inquiries
 
-### 💳 Payment & Checkout
-- **Secure Checkout** - Multi-step checkout process
-- **Multiple Payment Methods** - Credit card, PayPal, and cash on delivery
-- **Order Confirmation** - Email notifications for orders
-- **Invoice Generation** - PDF invoices for completed orders
 
-### 📱 Responsive Design
-- **Mobile-First** - Optimized for all devices
-- **Fast Loading** - Optimized images and caching
-- **SEO Friendly** - Clean URLs and meta tags
-
-## 🚀 Technology Stack
-
-- **Backend:** PHP 7.4+
-- **Database:** MySQL 5.7+
-- **Frontend:** HTML5, CSS3, JavaScript
-- **CSS Framework:** Bootstrap 5
-- **JavaScript Libraries:** jQuery, Owl Carousel
-- **Icons:** Font Awesome
-- **Payment:** PayPal API, Stripe (optional)
-
-## 📦 Installation
-
-### Prerequisites
-- PHP 7.4 or higher
-- MySQL 5.7 or higher
-- Apache/Nginx web server
-- Composer (for dependencies)
-
-### Step-by-Step Installation
-
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/yourusername/decocraft-ecommerce.git
-   cd decocraft-ecommerce
-   ```
-
-2. **Create database**
-   ```sql
-   CREATE DATABASE decocraft_store;
-   ```
-
-3. **Import database schema**
-   ```bash
-   mysql -u username -p decocraft_store < database/decocraft_store.sql
-   ```
 
 4. **Configure database connection**
    Edit `includes/db.php`:
