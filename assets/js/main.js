@@ -3,7 +3,6 @@
 
     $(document).ready(function($){
         
-        // Handle Add to Cart button clicks
         $(document).on('click', 'button[type="submit"].cart-btn1, button.cart-btn1', function(e) {
             e.preventDefault();
             
@@ -17,7 +16,6 @@
                 dataType: 'json',
                 success: function(response) {
                     if (response.success) {
-                        // Update cart count
                         $.ajax({
                             url: 'cart_count.php',
                             type: 'GET',
