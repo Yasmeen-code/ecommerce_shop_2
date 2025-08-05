@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once 'includes/db.php'; 
+require_once 'includes/db.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = htmlspecialchars(trim($_POST['name'] ?? ''));
@@ -10,13 +10,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $message = htmlspecialchars(trim($_POST['message'] ?? ''));
 
     if (empty($name) || empty($email) || empty($subject) || empty($message)) {
-        die('Please fill in all required fields.');
+        echo 'Please fill in all required fields.';
+        exit;
     }
 
-    $stmt = $pdo->prepare("INSERT INTO contact_messages (name, email, phone, subject, message) VALUES (?, ?, ?, ?, ?)");
-    $stmt->execute([$name, $email, $phone, $subject, $message]);
+    try {
+        $stmt = $pdo->prepare("INSERT INTO contact_messages (name, email, phone, subject, message) VALUES (?, ?, ?, ?, ?)");
+        $stmt->execute([$name, $email, $phone, $subject, $message]);
 
-    echo "<script>alert('Your message has been received successfully!'); window.location.href='contact.php';</script>";
+        echo 'Message sent successfully. We will get back to you soon.';
+    } catch (PDOException $e) {
+        echo ' Message could not be sent. Please try again later.';
+    }
 } else {
-    echo "Invalid request.";
+    echo " Invalid request method.";
 }

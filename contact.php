@@ -31,7 +31,7 @@ include 'includes/header.php';
         </div>
         <div id="form_status"></div>
         <div class="contact-form">
-          <form method="POST" action="process_contact.php">
+          <form id="contactForm" method="POST" action="process_contact.php">
             <p>
               <input type="text" placeholder="Your Name" name="name" id="name" required />
               <input type="email" placeholder="Your Email" name="email" id="email" required />
@@ -104,6 +104,48 @@ include 'includes/header.php';
     class="embed-responsive-item"></iframe>
 </div>
 <!-- end google map section -->
+
+<script>
+  document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const formData = new FormData(this);
+    const formStatus = document.getElementById('form_status');
+
+    // Show loading message
+    formStatus.innerHTML = '<div style="background-color: #d1ecf1; color: #0c5460; padding: 10px; border: 1px solid #bee5eb; border-radius: 5px; text-align: center;">جاري إرسال الرسالة...</div>';
+
+    fetch('process_contact.php', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.text())
+      .then(data => {
+        if (data.includes('Message sent successfully')) {
+          formStatus.innerHTML = `
+                <div style="background-color: #d4edda; color: #155724; padding: 15px; border: 1px solid #c3e6cb; border-radius: 5px; text-align: center; margin-bottom: 20px;">
+                    <i class="fas fa-check-circle"></i> Message sent successfully! We will get back to you soon.
+                </div>
+            `;
+          // Clear form
+          document.getElementById('contactForm').reset();
+        } else {
+          formStatus.innerHTML = `
+                <div style="background-color: #f8d7da; color: #721c24; padding: 15px; border: 1px solid #f5c6cb; border-radius: 5px; text-align: center;">
+                    <i class="fas fa-exclamation-triangle"></i> Error occur while sending message. Please try again.
+                </div>
+            `;
+        }
+      })
+      .catch(error => {
+        formStatus.innerHTML = `
+            <div style="background-color: #f8d7da; color: #721c24; padding: 15px; border: 1px solid #f5c6cb; border-radius: 5px; text-align: center;">
+                <i class="fas fa-exclamation-triangle"></i> An error occurred while sending your message. Please try again later.
+            </div>
+        `;
+      });
+  });
+</script>
 
 <?php include 'includes/footer.php'; ?>
 <!-- end footer -->
